@@ -1,0 +1,223 @@
+<div class="import">
+
+  <div class="import-card">
+    <div class="import-header">
+      <div (click)="changeCheck()">Hàng hóa {{index+1}}</div>
+      <ion-icon class="open-icon" name="add-outline" *ngIf="!checkOpen" (click)="changeCheck()"></ion-icon>
+      <ion-icon class="open-icon" name="remove-outline" *ngIf="checkOpen" (click)="changeCheck()"></ion-icon>
+
+      <ion-icon (click)="deleteForm()" class="close-icon" name="close-outline"></ion-icon>
+    </div>
+
+    <div style="padding: 0 10px;">
+      <table>
+        <tr>
+          <td class="table-left">Tên mặt hàng <span>*</span></td>
+          <td>
+            <!-- <ion-input (click)="openVattu()" [(ngModel)]="tenHang"></ion-input>         -->
+            <div (click)="openVattu()" class="form-input" style="min-height: 38px;">
+              {{tenHang}}
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="submitForm != 0 && !tenHang">
+          <td>
+          </td>
+          <td>
+            <div class="text-err">Trường bắt buộc nhập</div>
+          </td>
+        </tr>
+      </table>
+  
+      <table *ngIf="checkOpen">
+        <tr>
+          <td class="table-left">Số lượng <span>*</span></td>
+          <td>
+            <ion-input (keyup)="senData($event)" [(ngModel)]="displayItem.SoLuong"
+            (ngModelChange)="formatInput('SoLuong')"></ion-input>        
+          </td>
+        </tr>
+        <tr *ngIf="submitForm != 0 && !displayItem.SoLuong">
+          <td>
+          </td>
+          <td>
+            <div class="text-err">Trường bắt buộc nhập</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-left">Đơn giá</td>
+          <td>
+            <ion-input (keyup)="senData($event)" [(ngModel)]="displayItem.DonGia" (ngModelChange)="formatInput('DonGia')"></ion-input>        
+          </td>
+        </tr>
+        <tr>
+          <td class="table-left">Chiết khẩu (%)</td>
+          <td>
+            <ion-input (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.ChietKhau_Percent"
+            (ngModelChange)="convSendData('ChietKhau_Percent')"></ion-input>        
+          </td>
+        </tr>
+        <tr>
+          <td class="table-left">VAT (%)</td>
+          <td>
+            <ion-input (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.VAT_Percent"
+            (ngModelChange)="convSendData('VAT_Percent')"></ion-input>        
+          </td>
+        </tr>
+        <!-- <tr>
+          <td>HTTT</td>
+          <td>
+            <ion-input (click)="openHttt()" (keyup)="senData($event)" [(ngModel)]="displayItem.HTTT"></ion-input>        
+          </td>
+        </tr>
+        <tr>
+          <td>T.Thành tiền</td>
+          <td>
+            <ion-input (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.ThanhTien"
+            [disabled]="true"></ion-input>        
+          </td>
+        </tr>
+        <tr>
+          <td>Tổng VAT</td>
+          <td>
+            <ion-input (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.VAT" [disabled]="true"></ion-input>        
+          </td>
+        </tr>
+        <tr>
+          <td>T.Chiết khấu</td>
+          <td>
+            <ion-input (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.ChietKhau"
+            [disabled]="true"></ion-input>        
+          </td>
+        </tr> 
+        <tr>
+          <td>Tổng tiền</td>
+          <td>
+            <ion-input (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.TongTien"
+            [disabled]="true"></ion-input>        
+          </td>
+        </tr>-->
+      </table>
+    </div>
+    
+
+
+  </div>
+
+
+  <!-- <table class="">
+    <tr>
+      <td (click)="openVattu()" colspan="6" class="import-label2">
+        <label>Tên mặt hàng <span>(*)</span></label>
+        <div class="import-disable" [class]="!makho ? 'bg-gray' : ''">
+          {{tenHang}}
+        </div>
+      </td>
+
+    </tr>
+    <tr>
+      <td colspan="6" *ngIf="submitForm != 0 && !tenHang">
+        <div class="text-err">Trường bắt buộc nhập</div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="import-label2 import-right">
+        <label>Lô hàng</label>
+        <input type="text" [(ngModel)]="displayItem.LoHang" [disabled]="true" [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+      <td colspan="2" class="import-label2 import-left import-right">
+        <label>Đơn vị tính</label>
+        <input type="text" [(ngModel)]="displayItem.DVT" [disabled]="true" [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+      <td colspan="2" class="import-label2 import-left">
+        <label>Hạn dùng</label>
+        <input type="text" [(ngModel)]="displayItem.HanDung" [disabled]="true" [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3" class="import-label2 import-right">
+        <label>Số lượng <span>(*)</span></label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.SoLuong"
+          (ngModelChange)="formatInput('SoLuong')" [disabled]="!tenHang ? true : false"
+          [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+      <td colspan="3" class="import-label2 import-left">
+        <label>Đơn giá</label>
+        <input type="text" class="text-right" [(ngModel)]="displayItem.DonGia" [disabled]="true"
+          [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+    </tr>
+    <tr *ngIf="submitForm != 0 && !displayItem.SoLuong">
+      <td colspan="3">
+        <div class="text-err">Trường bắt buộc nhập</div>
+      </td>
+      <td colspan="3">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" class="import-label2 import-right">
+        <label>Chiết khẩu (%)</label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.ChietKhau_Percent"
+          (ngModelChange)="convSendData('ChietKhau_Percent')" [disabled]="!tenHang ? true : false"
+          [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+      <td colspan="3" class="import-label2 import-left">
+        <label>VAT (%)</label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.VAT_Percent"
+          (ngModelChange)="convSendData('VAT_Percent')" [disabled]="!tenHang ? true : false"
+          [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+    </tr>
+
+    <tr>
+      <td *ngIf="banggia == 'GiaBanLe'" colspan="3" class="import-label2  import-right">
+        <label>Giá bán lẻ</label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.GiaBanLe"
+          [disabled]="true" [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+      <td *ngIf="banggia == 'GiaBanSy'" colspan="3" class="import-label2  import-right">
+        <label>Giá bán sỷ</label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.GiaBanSy"
+          [disabled]="true" [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+      <td colspan="3" class="import-label2  import-left">
+        <label>HTTT: <span>(*)</span></label>
+        <input type="text" (click)="openHttt()" (keyup)="senData($event)" [(ngModel)]="displayItem.HTTT"
+          [disabled]="!tenHang ? true : false" [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3" class="import-label2  import-right">
+        <label>T.Thành tiền:</label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.ThanhTien"
+          [disabled]="true" [class]="!tenHang ? 'bg-gray' : ''">
+
+      </td>
+      <td colspan="3" class="import-label2  import-left">
+        <label>Tổng VAT</label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.VAT" [disabled]="true"
+          [class]="!tenHang ? 'bg-gray' : ''">
+
+
+      </td>
+
+
+
+    </tr>
+
+    <tr>
+      <td colspan="3" class="import-label2  import-right">
+        <label>T.Chiết khấu</label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.ChietKhau"
+          [disabled]="true" [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+      <td colspan="3" class="import-label2  import-left">
+        <label>Tổng tiền</label>
+        <input type="text" (keyup)="senData($event)" class="text-right" [(ngModel)]="displayItem.TongTien"
+          [disabled]="true" [class]="!tenHang ? 'bg-gray' : ''">
+      </td>
+    </tr>
+  </table> -->
+</div>

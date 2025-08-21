@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="closeModal()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      Hóa đơn chờ
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <!-- <ion-item lines="none" (click)="openTypeCT()"
+      style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+      <ion-icon style="font-size: 26px;" name="filter-outline"></ion-icon>
+    </ion-item> -->
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div *ngIf="listBillWait.length == 0">
+      <app-no-data></app-no-data>
+    </div>
+  <div class="wait">
+
+    <div (click)="hoverItem(item.ChungTuID)" *ngFor="let item of displayChiTietHang; index as i" class="wait-item border-b" [class.bg-hover]="item.check == true">
+
+      <div class="wait-content">
+        <div class="wait-content-item">
+          <div class="wait-content-left wait-content-title">
+            Hóa đơn {{i + 1}}
+          </div>
+          <div (click)="presentActionSheet(item, i)"  class="wait-content-right">
+            <span><ion-icon name="ellipsis-horizontal-outline"></ion-icon></span>
+          </div>
+        </div>
+        
+        <div class="wait-content-item" style="margin-bottom: 5px;">
+          <div class="wait-content-left">
+            <ion-icon style="border: none; font-size: 18px;" name="bookmarks-outline"></ion-icon>
+            {{convertHelper.typeChungTu(item.LoaiCTID) }}
+          </div>
+          <div class="wait-content-right">
+            {{item.ThoiDiem | date:'dd/MM/yyyy HH:mm'}}
+
+          </div>
+        </div>
+        <div *ngIf="item.donvi_name" class="wait-content-item" style="margin-bottom: 5px;">
+          <div class="wait-content-left">
+            <ion-icon style="border: none; font-size: 18px;" name="briefcase-outline"></ion-icon> {{item.donvi_name}}
+          </div>
+        
+        </div>
+        <div class="wait-content-item">
+          <div (click)="toggleOpen(i)" class="wait-content-left">
+            <ion-icon *ngIf="!isOpen[i]" name="add-outline"></ion-icon>
+            <ion-icon *ngIf="isOpen[i]" name="remove-outline"></ion-icon>
+            {{item.ChiTietHang.length}} mặt hàng
+          </div>
+          <div class="wait-content-right font-bold">
+            <span>{{item.sumMoney | number}}</span>
+          </div>
+        </div>
+        <table *ngIf="isOpen[i]">
+          <tr *ngFor="let product of item.ChiTietHang; index as a">
+            <td>- {{product._TenVT}} ({{product.DVT}})</td> 
+            <!-- <td  style="display: flex; gap: 10px;">
+              <ion-icon name="add-circle-outline" style="font-size: 24px; color: #2990f7;"></ion-icon>
+              <div style="margin-top: 4px;">5</div>
+              <ion-icon name="remove-circle-outline" style="font-size: 24px; color: #2990f7;"></ion-icon>
+            </td> -->
+            <td class="text-right" style="display: flex; float: right;">
+              <ion-icon (click)="formatInput(i, a, 'plus')" name="add-circle-outline"></ion-icon>
+              <div style="margin-top: 4px;">
+                <input [class.bg-hover]="item.check == true" type="text" [(ngModel)]="product.SoLuong" (ngModelChange)="formatInput(i, a, '', $event)">
+              </div>
+              <ion-icon (click)="formatInput(i, a, 'subtraction')" name="remove-circle-outline"></ion-icon>
+
+            </td>
+            <td><ion-icon name="trash-outline" style="font-size: 18px; color: #dd0000;"></ion-icon></td>
+          </tr>
+        
+        </table>
+      </div>
+    </div>
+   
+  </div>
+
+</ion-content>

@@ -1,0 +1,65 @@
+.import {
+
+    padding: 0 0 0 10px;
+
+    &-title {
+        color: #0764ae;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+    }
+
+    &-icon {
+        font-size: 25px;
+    }
+
+    &-label {
+        span {
+            color: red;
+        }
+    }
+
+    &-label2 {
+        margin-bottom: 8px;
+
+        span {
+            color: red;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+    }
+
+    &-add {
+        display: flex;
+        /* align-items: center; */
+        gap: 5px;
+        color: #196fb4;
+        padding: 10px;
+
+        ion-icon {
+            margin-left: auto;
+        }
+    }
+
+
+    td {
+        padding-bottom: 10px;
+        padding-right: 10px;
+    }
+}
+
+table {
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 8px 10px 8px;
+    background: #F0F5FF;
+    border-radius: 5px;
+    border: 1px solid #F0F5FF;
+}

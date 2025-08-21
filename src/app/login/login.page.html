@@ -1,0 +1,131 @@
+<ion-content style="padding:10px!important">
+
+  <div
+    style="padding: 10px!important; border-radius: 5px; text-align: center!important; display:block; height: 100%!important;">
+
+    <p
+      style="text-align: center!important; margin-top:50px!important; margin-bottom:20px!important; padding-left: 60px!important; padding-right: 60px!important;">
+      <img src="../../assets/images/Logo.png" (click)="openConfig()" style="border-radius: 6px; width: 35%!important;">
+    </p>
+
+    <div style="font-weight: bold; color: #7077d6;">
+      <table>
+        <tr>
+          <td style="width: 100px;"></td>
+          <td>
+            ĐĂNG NHẬP
+          </td>
+          <td style="width: 100px;">
+            <ion-icon *ngIf="!this.Show" (click)="changeOrg()" name="chevron-down-outline" style = "font-size: 20px; margin-bottom: -5px!important;"></ion-icon>
+            <ion-icon *ngIf="this.Show" (click)="changeOrg()" name="chevron-up-outline" style = "font-size: 20px; margin-bottom: -5px!important;"></ion-icon>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="padding-left: 30px; padding-right: 30px;">
+      <div *ngIf="this.Show==true"
+        style="width: 100%!important; max-width: 100%!important; background-color: #fcf8f8; padding: 3px!important; padding-left: 10px!important; padding-right: 10px!important; margin-top: 30px!important; margin-bottom: -10px!important; border-radius: 30px;">
+        <table style="width: 100%!important; max-width: 100%!important; background-color: #fcf8f8;">
+          <tr>
+            <td style="width: 30px; background-color: #fcf8f8;">
+              <ion-icon item-left name="scan-circle-outline" style="color: #7077d6; font-size: 20px;"></ion-icon>
+            </td>
+            <td style="text-align: justify;">
+              <ion-input type="text" [(ngModel)]="orgId"
+                style="--padding-start:5px!important;color: #7077d6; font-weight: bold;" placeholder="Mã cơ sở">
+              </ion-input>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div
+        style="width: 100%!important; max-width: 100%!important; background-color: #fcf8f8; padding: 3px!important; padding-left: 10px!important; padding-right: 10px!important; margin-top: 30px!important; border-radius: 30px;">
+        <table style="width: 100%!important; max-width: 100%!important; background-color: #fcf8f8;">
+          <tr>
+            <td style="width: 30px; background-color: #fcf8f8;">
+              <ion-icon item-left name="person" style="color: #7077d6; font-size: 20px;"></ion-icon>
+            </td>
+            <td style="text-align: justify;">
+              <ion-input type="text" [(ngModel)]="UserName" style="--padding-start:5px!important;color: #7077d6;"
+                placeholder="Tài khoản">
+              </ion-input>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+     
+      <div
+        style="width: 100%!important; max-width: 100%!important; background-color: #fcf8f8; padding: 3px!important; padding-left: 10px!important; padding-right: 10px!important; margin-top: 10px!important; border-radius: 30px;">
+        <table style="width: 100%!important; max-width: 100%!important; background-color: #fcf8f8;">
+          <tr>
+            <td style="width: 30px; background-color: #fcf8f8;">
+              <ion-icon item-left name="lock-closed-outline" style="color: #7077d6; font-size: 20px;"></ion-icon>
+            </td>
+            <td style="text-align: justify;">
+              <ion-input type="password" *ngIf="!this.ShowPass" [(ngModel)]="PassWord"
+                style="--padding-start:10px!important;color: #7077d6;" placeholder="Mật khẩu">
+              </ion-input>
+              <ion-input type="text" *ngIf="this.ShowPass" [(ngModel)]="PassWord"
+                style="--padding-start:10px!important;color: #7077d6;" placeholder="Mật khẩu">
+              </ion-input>
+            </td>
+            <td style="width: 40px; padding: 5px!important; background-color: #fcf8f8;">
+
+              <ion-icon *ngIf="this.ShowPass" (click)="onShowPass()" item-left name="eye"
+                style="font-size: 20px; color: #7077d6;"></ion-icon>
+              <ion-icon *ngIf="!this.ShowPass" (click)="onShowPass()" item-left name="eye-off-outline"
+                style="font-size: 20px; color: #7077d6;"></ion-icon>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 20px;">
+      <table>
+        <tr>
+          <td style="width: 50%; text-align: left; padding-left: 35px;">
+          Ghi nhớ mật khẩu
+          </td>
+          <td style="width: 50%; text-align: right; padding-right: 35px;color: red;">
+            Quên mật khẩu?
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="margin-top: 20px; padding-left: 30px; padding-right:30px; text-align: justify!important;">
+
+      <div (click)="signIn()"
+        style="margin-top: 40px; border-radius: 20px; padding: 12px; text-align: center; background-color:#7077d6!important; color: #fff; width: 100%!important;">
+        Đăng nhập
+      </div>
+
+      <!-- <div style="padding: 10px; text-align: center; margin-top: 10px;">
+        Bạn chưa có tài khoản? <span style="color: red;">Đăng ký ngay!</span>
+      </div> -->
+
+    </div>
+
+
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar style="--background:#fff;--border-width:0px!important;">
+    <!-- <table style="width: 100%!important; margin-bottom: 0px;">
+      <tr>
+        <td style="text-align: center; vertical-align: bottom!important; font-size: 15px; color: #6a6e72;">
+          Câu hỏi thường gặp
+        </td>
+      </tr>
+    </table> -->
+  </ion-toolbar>
+</ion-footer>

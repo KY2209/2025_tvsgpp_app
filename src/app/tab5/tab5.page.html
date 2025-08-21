@@ -1,0 +1,159 @@
+<ion-header>
+
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon (click)="openBack()" name="arrow-back-outline"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="text-align: center!important;">
+      Tài khoản
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style="color: #fff; --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon *ngIf="this.TabIndex == 2" (click)="openTab(1)" name="close-circle-outline"
+          style="font-size: 25px; color: #0764ae;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div style="padding: 15px; padding-top: 5px!important;" *ngIf="this.TabIndex == 1">
+
+    <div style="background-color: #f9f9fb!important; padding: 10px; border-radius: 4px; margin-top: 15px;">
+      <table style="width: 100%!important; max-width: 100%!important;">
+        <tr>
+          <td style="width: 90px; text-align: center; vertical-align: middle!important;">
+            <ion-icon name="person-circle-outline" style="color: #0764ae; font-size: 80px;"></ion-icon>
+          </td>
+          <td>
+            <div style="font-weight: bold; padding: 5px; color: #0764ae;">
+              {{this.UserName}} <span style="float: right;">
+                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+              </span>
+            </div>
+            <div style="font-weight: bold; padding: 5px; padding-top: 0px!important;  color: #0764ae;">
+              {{this.FullName}}
+            </div>
+            <div style="padding: 5px; padding-top: 0px!important; font-size: 15px; color: #0764ae;">
+              Số điện thoại: {{dienthoai}}
+            </div>
+            <div style="padding: 5px; padding-top: 0px!important; font-size: 15px;  color: #0764ae;">
+              Hạn dùng: {{reverseString(handung)}}
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- <div>
+
+    <table (click)="openSetting()" style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+      <tr style="border-bottom: solid 1px #f9f9fb;">
+        <td style="width: 30px; padding: 10px; padding-left: 0px!important;">
+          <ion-icon name="home" style="font-size: 22px; color: #0764ae;"></ion-icon>
+        </td>
+        <td style="padding: 10px; padding-left: 0px!important;">
+          Cấu hình hệ thống
+        </td>
+        <td style="width: 30px; padding: 10px; padding-right: 0px!important; text-align: right!important;">
+          <ion-icon name="chevron-forward-outline" style="font-size: 25px; color: #0764ae;"></ion-icon>
+        </td>
+      </tr>
+    </table>
+
+
+    </div> -->
+    <!-- <div>
+      <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+        <tr style="border-bottom: solid 1px #f9f9fb;">
+          <td style="width: 30px; padding: 10px; padding-left: 0px!important;">
+            <ion-icon name="home" style="font-size: 22px; color: #0764ae;"></ion-icon>
+          </td>
+          <td style="padding: 10px; padding-left: 0px!important;">
+            Thông tin đon vị
+          </td>
+          <td style="width: 30px; padding: 10px; padding-right: 0px!important; text-align: right!important;">
+            <ion-icon name="chevron-forward-outline" style="font-size: 25px; color: #0764ae;"></ion-icon>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%!important; max-width: 100%!important; margin-top: 0px;">
+        <tr style="border-bottom: solid 1px #f9f9fb;">
+          <td style="width: 30px; padding: 10px; padding-left: 0px!important;">
+            <ion-icon name="lock-closed-outline" style="font-size: 22px; color: #0764ae;"></ion-icon>
+          </td>
+          <td style="padding: 10px; padding-left: 0px!important;">
+            Đổi mật khẩu
+          </td>
+          <td style="width: 30px; padding: 10px; padding-right: 0px!important; text-align: right!important;">
+            <ion-icon name="chevron-forward-outline" style="font-size: 25px; color: #0764ae;"></ion-icon>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%!important; max-width: 100%!important; margin-top: 0px;">
+        <tr style="border-bottom: solid 1px #f9f9fb;">
+          <td style="width: 30px; padding: 10px; padding-left: 0px!important;">
+            <ion-icon name="help-circle" style="font-size: 25px; color: #0764ae;"></ion-icon>
+          </td>
+          <td style="padding: 10px; padding-left: 0px!important;">
+            Hướng dẫn sử dụng
+          </td>
+          <td style="width: 30px; padding: 10px; padding-right: 0px!important; text-align: right!important;">
+            <ion-icon name="chevron-forward-outline" style="font-size: 25px; color: #0764ae;"></ion-icon>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%!important; max-width: 100%!important; margin-top: 0px;">
+        <tr style="border-bottom: solid 1px #f9f9fb;">
+          <td style="width: 30px; padding: 10px; padding-left: 0px!important;">
+            <ion-icon name="information-circle" style="font-size: 25px; color: #0764ae;"></ion-icon>
+          </td>
+          <td style="padding: 10px; padding-left: 0px!important;">
+            Thông tin ứng dụng
+          </td>
+          <td style="width: 30px; padding: 10px; padding-right: 0px!important; text-align: right!important;">
+            <ion-icon name="chevron-forward-outline" style="font-size: 25px; color: #0764ae;"></ion-icon>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%!important; max-width: 100%!important; margin-top: 0px;">
+        <tr style="border-bottom: solid 1px #f9f9fb;">
+          <td style="width: 30px; padding: 10px; padding-left: 0px!important;">
+            <ion-icon name="crop" style="font-size: 25px; color: #0764ae;"></ion-icon>
+          </td>
+          <td style="padding: 10px; padding-left: 0px!important;">
+            Điều khoản sử dụng
+          </td>
+          <td style="width: 30px; padding: 10px; padding-right: 0px!important; text-align: right!important;">
+            <ion-icon name="chevron-forward-outline" style="font-size: 25px; color: #0764ae;"></ion-icon>
+          </td>
+        </tr>
+      </table>
+    </div> -->
+
+    <div style="padding: 5px; margin-top: 30px;">
+
+      <div (click) = "logout()"
+        style="width: 150px; margin: auto; padding: 10px; border-radius: 4px; background-color: #ececf1; color: #0764ae; text-align: center;">
+        Đăng xuất
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

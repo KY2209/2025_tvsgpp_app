@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <div>
+        <div style="display: flex; align-items: center; padding: 10px 20px; color: white;">
+          <div>
+            <div style="font-size: 20px; font-weight: 600;">{{nameCompany}}</div>
+            <div>{{this.FullName}}</div>
+          </div>
+          <div style="margin-left: auto;">
+            <ion-icon (click)="openNotification()" style="font-size: 24px;" name="notifications"></ion-icon>
+          </div>
+          <!-- <img style="width: 120px;     margin-left: auto;" src="../../assets/images/a2.png" alt=""> -->
+        </div>
+      </div>
+      <div>
+        <div class="home-card" >
+          <div class="home-card-form">
+            <div class="home-card-content">
+              <div>
+                <div>Doanh thu trong ngày</div>
+                <div class="home-card-number">{{this.Doanhthutrongngay | number}} <div> đ</div></div>
+              </div>
+              <div class="home-card-left">
+                <div class="home-card-item">
+                  <span >{{this.Hoadontrongngay}}</span>
+                  <br>
+                  Phiếu
+                </div>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+    
+    
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <div class="home">
+    <div class="home-title"> Doanh thu theo tháng</div>
+
+    <div style=" padding: 10px 0;">
+      <canvas #barChart class="home-chart" style="display: block; height: 240px; width: 100%;"></canvas>
+    </div>
+
+
+    <div class="row">
+      <div (click)="openBill()" class="col-4">
+        <div class="home-item">
+          <div class="home-item-card">
+            <ion-icon name="document-text"></ion-icon>
+          </div>
+        </div>
+        <div class="home-item-title">
+          Đơn hàng
+        </div>
+      </div>
+
+      <!-- <div *ngFor="let item of listLoaiCT" (click)="openGroup(item)" class="col-4">
+        <div class="home-item">
+          <div class="home-item-card">
+            <ion-icon [name]="item.name == 'Nhập hàng' ? 'cloud-upload' : 'cloud-download'"></ion-icon>
+          </div>
+        </div>
+        <div class="home-item-title">
+          {{item.name}}
+        </div>
+      </div> -->
+      <div (click)="openGroup('banle')" class="col-4">
+        <div class="home-item">
+          <div class="home-item-card">
+            <ion-icon name="cloud-download"></ion-icon>
+          </div>
+        </div>
+        <div class="home-item-title">
+          Bán lẻ
+        </div>
+      </div>
+      <div (click)="openGroup('nhaphang')" class="col-4">
+        <div class="home-item">
+          <div class="home-item-card">
+            <ion-icon name="cloud-upload"></ion-icon>
+          </div>
+        </div>
+        <div class="home-item-title">
+          Nhập hàng
+        </div>
+      </div>
+      <div (click)="openItem('vattu')" class="col-4 mt-10">
+        <div class="home-item">
+          <div class="home-item-card">
+            <ion-icon name="flask"></ion-icon>
+          </div>
+        </div>
+        <div class="home-item-title">
+          Vật tư
+        </div>
+      </div>
+      <div (click)="openInventory()" class="col-4 mt-10">
+        <div class="home-item">
+          <div class="home-item-card">
+            <ion-icon name="podium"></ion-icon>
+          </div>
+        </div>
+        <div class="home-item-title">
+          Tồn kho
+        </div>
+      </div>
+      <div (click)="openSapHetHan()" class="col-4 mt-10">
+        <div class="home-item">
+          <div class="home-item-card">
+            <ion-icon name="time"></ion-icon>
+          </div>
+        </div>
+        <div class="home-item-title">
+          Sắp hết hạn
+        </div>
+      </div>
+      <div *ngIf="displayLienThong" (click)="openLienThong()" class="col-4 mt-10">
+        <div class="home-item">
+          <div class="home-item-card">
+            <ion-icon name="globe-outline"></ion-icon>          
+          </div>
+        </div>
+        <div class="home-item-title">
+          Liên thông
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

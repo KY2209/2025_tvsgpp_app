@@ -1,0 +1,131 @@
+.export {
+    padding: 10px 15px;
+    background: white;
+    margin-top: 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    &-item {
+        display: flex;
+        padding: 15px 0 5px 0;
+        // border-bottom: 1px solid #bfbfbf;
+    }
+
+    &-icon {
+        font-size: 20px;
+        padding-right: 15px;
+    }
+
+    &-content {
+        width: 100%;
+
+        &-item {
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        &-left {
+            span {
+                color: var(--primary-color);
+            }
+        }
+
+        &-sm {
+            font-size: 14px;
+            color: gray;
+        }
+
+        &-right {
+            margin-left: auto;
+
+            span {
+                color: var(--primary-color);
+            }
+        }
+    }
+
+
+    // &-item {
+    //     display: flex;
+    //     margin-bottom: 12px;
+
+    //     &-title {
+    //         margin-top: 10px;
+    //         font-size: 18px;
+    //         font-weight: 600;
+    //         color: #373737;
+    //     }
+
+    //     &-content {
+    //         margin-top: 10px;
+    //         color: gray;
+    //         font-size: 14px;
+
+    //         span {
+    //             color: black;
+    //         }
+    //     }
+    // }
+
+    // &-left {
+    //     width: 6px;
+    //     background-color: red;
+    //     border-radius: 10px 0 0 10px;
+    // }
+
+    // &-right {
+    //     padding: 15px;
+    //     border-radius: 0 10px 10px 0;
+    //     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    //     background: white;
+    //     width: 100%;
+    // }
+
+    // &-date {
+    //     display: flex;
+    //     font-size: 14px;
+    //     color: gray;
+
+    //     &-right {
+    //         margin-left: auto;
+    //     }
+    // }
+
+    // &-blue {
+    //     background-color: #09b9b0;
+    // }
+
+    // &-yellow {
+    //     background-color: #f9c24d;
+    // }
+
+    // &-green {
+    //     background-color: #85c340;
+    // }
+}
+
+
+.btn-db{
+    color: white;
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+
+.bg-blue1{
+    background: #3880ff;
+}
+
+.bg-gray1{
+    background: #939393;
+}
+
+ion-content {
+    --background: #f9f9f9
+}
+
+ion-datetime{
+    --padding-top: 0px;
+}
+
+.border-b {
+    border-bottom: 1px solid #bfbfbf;
+}

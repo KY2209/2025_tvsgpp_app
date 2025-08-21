@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="closeModal()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      Vật tư
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <!-- <ion-icon name="add-outline" style="font-size: 26px;"></ion-icon> -->
+      </ion-item>
+
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="product-header">
+    <div class="product-search">
+      <input (keyup)="onSearch($event)" [(ngModel)]="pageInfo.keyword" type="text" placeholder="Tìm kiếm tên vật tư ..."
+        style="text-align: left; background: white;">
+      <!-- <ion-icon class="search-icon" *ngIf="pageInfo.keyword == ''" name="search-outline"></ion-icon> -->
+      <ion-icon (click)="deleteSearch()" *ngIf="pageInfo.keyword != ''" class="search-icon2"
+        name="close-circle-outline"></ion-icon>
+    </div>
+    <div class="product-add">
+      <div class="synthetic-item2">
+        <div class="synthetic-item-left">
+          {{countVattu | number}} vật tư trong danh sách
+        </div>
+        <div (click)="addItem('true')" class="synthetic-item2-right">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+
+<ion-content>
+
+
+  <div class="product">
+    <div (click)="getItem(item)" *ngFor="let item of listData; index as i" class="product-item border-b"
+      [class]="item.checkHover == true ? 'bg-hover' : ''">
+      <div *ngIf="displayImg" class="product-img">
+        <!-- <img *ngIf="item.Img" [src]="'data:image/jpeg;base64,'+item.Img"  alt=""> -->
+        <img *ngIf="!item.Img" src="../../../assets/images/no-img.jpg" alt="">
+        <img *ngIf="item.Img" [src]="item.Img" alt="">
+      </div>
+      <div class="product-content">
+        <div class="product-content-item">
+          <div class="product-content-left product-content-title">
+            {{item.TenVT}} - {{item.MaVT}}
+          </div>
+          <div (click)="handleItem(item)" class="product-content-right">
+            <!-- <button > -->
+            <!-- <ion-icon name="ellipsis-horizontal-outline"></ion-icon> -->
+            <ion-icon name="create-outline"></ion-icon>
+            <!-- </button> -->
+
+          </div>
+        </div>
+        <div class="product-content-item mt-6">
+          <div class="product-content-left">
+            <span>ĐVT:</span>
+            <span>
+              {{item.DVT}}
+            </span>
+
+          </div>
+
+          <div class="product-content-right">
+            <div class="product-content-left">
+              <span>Giá nhập:</span>
+              {{item.GiaMua | number}}
+
+            </div>
+
+          </div>
+        </div>
+        <div class="product-content-item mt-6">
+          <div class="product-content-left">
+            <span>Giá bán lẻ:</span>
+            {{item.GiaBanLe | number}}
+
+          </div>
+          <div class="product-content-right">
+            <div class="product-content-left">
+              <span>Giá bán buôn:</span>
+              {{item.GiaBanSy | number}}
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <ion-infinite-scroll *ngIf="!pageInfo.keyword" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Đang tải dữ liệu...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

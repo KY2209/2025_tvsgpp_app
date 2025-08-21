@@ -1,0 +1,315 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="openBack()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      {{title}} hóa đơn
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-item *ngIf="typePage == 'create'" lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="duplicate-outline"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="typePage == 'detail'" lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="print-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item (click)="handleEdit()" *ngIf="typePage == 'detail'" lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item (click)="handleDetail()" *ngIf="typePage == 'edit'" lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="bill">
+    <div class="bill-product">
+      <div class="bill-header bill-header-p13">
+        <div class="bill-header-left">
+          THÔNG TIN HÓA ĐƠN -- {{typePage}}
+          <ion-icon name="alert-circle-outline"></ion-icon>
+        </div>
+
+      </div>
+
+      <div class="bill-table">
+        <table>
+          <tr>
+            <td class="bill-table-left">Loại phiếu</td>
+            <td class="text-right">
+              <div [class.pr-44]="typePage == 'edit' || typePage == 'create'">
+                {{DienGiai}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Số chứng từ</td>
+            <td class="text-right">
+              <div [class.pr-44]="typePage == 'edit' || typePage == 'create'">
+                {{itemDetail.SoCT}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Đơn vị</td>
+            <td class="text-right">
+              <div style="display: flex; float: right;">
+                <div [class.pr-15]="typePage == 'edit' || typePage == 'create'">
+                  {{donvi}}
+                </div>
+                <span (click)="openUnit()" *ngIf="typePage == 'edit' || typePage == 'create'"><ion-icon
+                    name="pencil-outline"></ion-icon></span>
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Kho hàng</td>
+            <td class="text-right">
+              <div style="display: flex; float: right;">
+                <div [class.pr-15]="typePage == 'edit' || typePage == 'create'">
+                  {{kho}}
+
+                </div>
+                <span (click)="openKho()" *ngIf="typePage == 'edit' || typePage == 'create'"><ion-icon
+                    name="pencil-outline"></ion-icon></span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Thời gian</td>
+            <td class="text-right">
+              <div [class.pr-44]="typePage == 'edit' || typePage == 'create'">
+                {{itemDetail.ThoiDiem | date:'dd/MM/yyyy HH:mm'}}
+              </div>
+              <!-- <ion-input ></ion-input> -->
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="bill-header bill-header-p13">
+        <div class="bill-header-left">
+          THÔNG TIN THANH TOÁN
+          <ion-icon name="alert-circle-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="bill-table">
+        <table>
+          <tr>
+            <td class="bill-table-left">T.Thành tiền</td>
+            <td class="text-right">
+              <div [class.pr-44]="typePage == 'edit' || typePage == 'create'">
+                {{sumThanhTien | number}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">T.VAT</td>
+            <td class="text-right">
+              <div [class.pr-44]="typePage == 'edit' || typePage == 'create'">
+                {{sumVAT | number}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">T.Chiết khấu</td>
+            <td class="text-right">
+              <div [class.pr-44]="typePage == 'edit' || typePage == 'create'">
+                {{sumChietKhau | number}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Đã thanh toán</td>
+            <td class="text-right">
+              <div [class.pr-44]="typePage == 'edit' || typePage == 'create'">
+                {{sumThanhToan | number}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">T.Tiền</td>
+            <td class="text-right">
+              <div [class.pr-44]="typePage == 'edit' || typePage == 'create'">
+                {{sumTongTien | number}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">HTTT</td>
+            <td class="text-right">
+              <div style="display: flex; float: right;">
+                <div [class.pr-15]="typePage == 'edit' || typePage == 'create'">
+                  Tiền mặt
+                </div>
+                <span *ngIf="typePage == 'edit' || typePage == 'create'"><ion-icon
+                    name="pencil-outline"></ion-icon></span>
+
+              </div>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="bill-header" style="display: flex; align-items: center;">
+        <div>
+          CHI TIẾT HÓA ĐƠN ({{countProduct}})
+        </div>
+        <ion-icon (click)="openVattu()" *ngIf="typePage == 'edit' || typePage == 'create'" name="add-outline"
+          style="margin-left: auto; font-size: 24px;  color: #2990f7;"></ion-icon>
+
+      </div>
+      <div *ngIf="typePage == 'detail'">
+
+        <div *ngFor="let item of itemDetail.ChiTietHang; index as i" class="bill-item">
+
+          <div class="bill-item-title">
+            <p>{{i+1}}. {{item._TenVT}} - {{item.MaVT}}</p>
+          </div>
+          <table class="bill-table-content">
+            <tr>
+              <td class="pr-20">
+                <div>
+                  <span>ĐVT: </span> {{item.DVT}}
+                </div>
+
+              </td>
+              <td>
+                <span>Giá: </span>
+                {{item.DonGia | number}}
+              </td>
+              <td class="text-right">
+                <span>SL: </span>
+                {{item.SoLuong | number}}
+              </td>
+            </tr>
+            <tr>
+              <td class=" pr-20">
+                <span>C.K: </span>
+                {{item.ChietKhau_Percent}}
+              </td>
+              <td>
+                <span>VAT(%): </span>
+                {{item.VAT_Percent}}
+              </td>
+              <td class="text-right">
+                <span>T.Tiền: </span>
+                {{item.TongTien | number}}
+              </td>
+
+            </tr>
+
+          </table>
+
+
+        </div>
+      </div>
+
+      <div *ngIf="typePage != 'detail'">
+
+        <div *ngFor="let item of displayChiTietHang; index as i" class="bill-item">
+
+          <div class="bill-item-title">
+            <p>{{i+1}}. {{item._TenVT}} - {{item.MaVT}}</p>
+            <ion-icon (click)="handleRemove(item, i)" name="trash-outline"></ion-icon>
+
+          </div>
+          <table class="bill-table-content">
+            <tr>
+              <td class="pr-20">
+                <div>
+                  <span><i class="bi bi-capsule"></i> </span> &nbsp;
+                  <input type="text" [(ngModel)]="sendItem.ChiTietHang[i].DVT">
+                </div>
+
+              </td>
+              <td>
+                <span><i class="bi bi-currency-dollar"></i> </span> &nbsp;
+                <input type="text" [(ngModel)]="item.DonGia" (ngModelChange)="formatInput('DonGia', i)">
+              </td>
+              <td class="text-right" style="display: flex; float: right;">
+                <ion-icon (click)="formatInput('SoLuong', i, 'plus')" name="add-circle-outline"></ion-icon>
+                <div style="margin-top: 4px;">
+                  <input type="text" [(ngModel)]="item.SoLuong" (ngModelChange)="formatInput('SoLuong', i)">
+                </div>
+                <ion-icon (click)="formatInput('SoLuong', i, 'subtraction')" name="remove-circle-outline"></ion-icon>
+
+              </td>
+            </tr>
+            <tr>
+              <td class=" pr-20">
+                <span><i class="bi bi-percent"></i> </span> &nbsp;
+                <input type="number" [(ngModel)]="item.ChietKhau_Percent"
+                  (ngModelChange)="setInput($event,'ChietKhau_Percent', i)">
+              </td>
+              <td>
+                <span><i class="bi bi-credit-card"></i> </span> &nbsp;
+                <input type="number" [(ngModel)]="item.VAT_Percent" (ngModelChange)="setInput($event,'VAT_Percent', i)">
+
+              </td>
+              <td class="text-right">
+                <span><i class="bi bi-cash-coin"></i> </span> &nbsp;
+                {{item.TongTien | number}}
+              </td>
+
+            </tr>
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+<ion-footer *ngIf="typePage != 'detail'">
+  <ion-toolbar>
+  <div class="bill-footer">
+    <table>
+      <!-- <tr>
+        <td class="bill-bold">HTTT</td>
+        <td>Tiền mặt</td>
+      </tr> -->
+      <tr>
+        <td class="bill-bold">In hóa đơn</td>
+        <td class="text-right">
+          <ion-toggle color="primary"></ion-toggle>
+        </td>
+      </tr>
+      <tr>
+        <td class="bill-bold">T.Tiền cần trả</td>
+        <td class="text-right">{{sumTongTien | number}}</td>
+      </tr>
+    </table>
+
+
+
+    <div class="bill-btn">
+
+      <div class="bill-btn-left">
+        <div class="bill-btn-relative">
+          <ion-icon name="receipt-outline"></ion-icon>
+          <div>2</div>
+        </div>
+        <button (click)="confirmSubmit()">LƯU HÓA ĐƠN</button>
+      </div>
+    </div>
+  </div>
+</ion-toolbar>
+</ion-footer>

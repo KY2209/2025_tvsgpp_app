@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="closeModal()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      {{title}} phiếu
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-item (click)="submit()" lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <!-- <ion-icon name="create-outline"></ion-icon> -->
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div class="import-card">
+    <table>
+      <tr>
+        <td>Loại phiếu</td>
+        <td>
+          <ion-input [(ngModel)]="DienGiai" [disabled]="true"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>Đơn vị</td>
+        <td>
+          <ion-input (click)="openDonvi()" [(ngModel)]="displayItem.DVXuat"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>Kho hàng <span>*</span></td>
+        <td>
+          <ion-input (click)="openKho()" [(ngModel)]="displayItem.KhoXuat"></ion-input>
+        </td>
+      </tr>
+      <tr *ngIf="submitForm != 0 && !displayItem.KhoXuat">
+        <td>
+        </td>
+        <td>
+          <div class="text-err">Trường bắt buộc nhập</div>
+        </td>
+      </tr>
+      <tr>
+        <td>HTTT</td>
+        <td>
+          <ion-input (click)="openHttt()" [(ngModel)]="display_httt"></ion-input>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngFor="let item of listFormItem; index as i">
+    <div [id]="'item'+i">
+      <app-xuathang-item 
+        [makho]="makho" 
+        [banggia]="banggia" 
+        [isCreate]="isCreate" 
+        [listVattu]="listVattu" 
+        [index]="i" 
+        [submitForm]="submitForm"
+        [data]="item" 
+        [httt]="send_httt" 
+        [indexOpen]="index" 
+        (sendData)="getData($event)" 
+        (sendIndex)="getIndex($event)"
+        (sendDelete)="getDelete($event)">
+      </app-xuathang-item>
+    </div>
+  </div>
+  <div (click)="addForm()" class="import-add">
+    <ion-icon name="add-circle-outline"></ion-icon>
+    Thêm hàng hóa
+  </div>
+
+  <div id="myDiv" class="printBill"> 
+    <app-print-bill [data]="itemDetail2"></app-print-bill>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div style="display: flex; padding: 0 6px;">
+      <div><span style="color: var(--primary-color);">{{this.listFormItem.length}}</span> mặt hàng</div>
+      <div style="margin-left: auto;">Tổng: <span style="color: var(--primary-color);">{{sumMoney | number}}</span></div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

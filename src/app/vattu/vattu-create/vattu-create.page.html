@@ -1,0 +1,335 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="closeModal()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      Thêm vật tư
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <!-- <ion-icon name="duplicate-outline"></ion-icon> -->
+        <ion-icon (click)="handleProductCountry()" name="search-outline"></ion-icon>
+      </ion-item>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="bill">
+    <div class="bill-product">
+      <div class="bill-header bill-header-p13">
+        <div class="bill-header-left">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+
+          Chi tiết vật tư
+        </div>
+
+      </div>
+
+      <div class="bill-table">
+        <table>
+          <tr *ngIf="displayImg">
+            <td class="bill-table-left">Ảnh đại diện</td>
+            <td>
+              <div>
+                <label class="bill-avatar" for="file-upload">
+                  <img *ngIf="!sendItem.Img" src="../../../assets/images/no-img.jpg" alt="">
+                  <img *ngIf="sendItem.Img" [src]="'data:image/jpeg;base64,'+sendItem.Img" alt="">
+                </label>
+                <input id="file-upload" type="file" accept="image/png, image/jpeg" (change)="onChange($event)">
+              </div>
+
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Link ảnh</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.ImgLink">
+                <!-- <ion-icon (click)="handleGroupProduct()" name="options-outline"></ion-icon> -->
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Nhóm VT</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.NhomVT">
+                <!-- <ion-icon (click)="handleGroupProduct()" name="options-outline"></ion-icon> -->
+                <ion-icon (click)="handleGroupProduct()" name="menu-outline"></ion-icon>
+
+              </div>
+            </td>
+          </tr>
+
+          <!-- <tr *ngIf="isCreate != 'true'">
+            <td class="bill-table-left">Mã vạch</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input class="bg-gray" type="text" [(ngModel)]="sendItem.MaVach" [disabled]="true">
+
+              </div>
+            </td>
+          </tr> -->
+          <tr>
+            <td class="bill-table-left">Tên hàng <span class="text-err">*</span></td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.TenVT">
+
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="isSubmit && !sendItem.TenVT" class="no-border-top">
+            <td class="bill-table-left"></td>
+            <td class="text-right text-err">
+              Trường bắt buộc nhập
+            </td>
+          </tr>
+
+          <tr>
+            <td class="bill-table-left">Đơn vị tính <span class="text-err">*</span></td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.DVT">
+                <ion-icon (click)="changeCalculation()" name="add-circle-outline"></ion-icon>
+                <!-- <ion-icon (click)="changeCalculation()" name="add-outline" style="margin-left: auto; font-size: 24px;  color: #2990f7;"></ion-icon> -->
+
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="isSubmit && !sendItem.DVT" class="no-border-top">
+            <td class="bill-table-left"></td>
+            <td class="text-right text-err">
+              Trường bắt buộc nhập
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Giá nhập</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="GiaMuaConv" (ngModelChange)="formatInput('GiaMua', $event)">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Giá bán lẻ</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="GiaBanLeConv" (ngModelChange)="formatInput('GiaBanLe', $event)">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Giá buôn</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="GiaBanSyConv" (ngModelChange)="formatInput('GiaBanSy', $event)">
+
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="bill-header bill-header-p13">
+        <div class="bill-header-left">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+
+          Thông tin khác
+        </div>
+      </div>
+
+      <div class="bill-table">
+        <table>
+          <!-- <tr *ngIf="isCreate != 'true'">
+            <td class="bill-table-left">Mã dược QG</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input class="bg-gray" type="text" [(ngModel)]="sendItem.MaDuocQG" [disabled]="true">
+              </div>
+            </td>
+          </tr> -->
+          <tr>
+            <td class="bill-table-left">Số đăng ký</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.SoDangKy">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Hoạt chất chính</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.HoatChatChinh">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Hàm lượng</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.HamLuong">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Liều dùng</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.LieuDung">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Đường dùng</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.DuongDung">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Quy cách</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.QuyCach">
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Hãng SX</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.HangSanXuat">
+                <!-- <ion-icon (click)="handleHangSX()" name="options-outline"></ion-icon> -->
+                <ion-icon (click)="handleHangSX()" name="menu-outline"></ion-icon>
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Nước SX</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <input type="text" [(ngModel)]="sendItem.NuocSanXuat">
+                <!-- <ion-icon (click)="handleNuocSX()" name="options-outline"></ion-icon> -->
+                <ion-icon (click)="handleNuocSX()" name="menu-outline"></ion-icon>
+
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left">Loại hàng</td>
+            <td class="text-right">
+              <div class="bill-input">
+                <div (click)="handleLoaiHang()" class="forminput" style="width: 100%;">
+                  {{LoaiVT_name}}
+                </div>
+                <!-- <input type="text" [(ngModel)]="sendItem.LoaiVT">
+                <ion-icon (click)="handleLoaiHang()" name="options-outline"></ion-icon> -->
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="bill-table-left"></td>
+            <td style="display: flex; gap: 10px;">
+              <input type="checkbox" [(ngModel)]="sendItem.TichDiem" name="" id="">
+              Áp dụng tích điểm
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="bill-header bill-header-p13">
+        <div class="bill-header-left">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+
+          Đơn vị tính quy đổi ({{listDVTConv.length}})
+        </div>
+      </div>
+
+      <!-- <div class="bill-header" style="display: flex; align-items: center;">
+        <div>
+          <ion-icon name="alert-circle-outline"></ion-icon>
+
+          ĐƠN VỊ TÍNH QUY ĐỔI ({{listDVTConv.length}})
+        </div>
+
+      </div> -->
+      <div *ngFor="let item of listDVTConv; index as i" class="bill-item">
+        <div class="bill-item-title">
+          <p>{{i+1}}. {{item.DVT}}</p>
+          <ion-icon (click)="confirmRemove(item, i)" name="trash-outline"></ion-icon>
+
+        </div>
+        <table>
+
+          <tr>
+            <td>
+              <span>SLQĐ:&nbsp;&nbsp;&nbsp; </span>
+              <input type="number" [(ngModel)]="item.SoLuongQuyDoi">
+            </td>
+
+            <td class="text-right">
+              <span>Giá mua: </span>
+              <input type="text" [(ngModel)]="item.GiaMua" (ngModelChange)="formatInputDVT('GiaMua', i, $event)">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>Giá BL: &nbsp;</span>
+              <input type="text" [(ngModel)]="item.GiaBanLe" (ngModelChange)="formatInputDVT('GiaBanLe', i, $event)">
+            </td>
+
+            <td class="text-right">
+              <span>Giá BB: </span>
+              <input type="text" [(ngModel)]="item.GiaBanSy" (ngModelChange)="formatInputDVT('GiaBanSy', i, $event)">
+            </td>
+          </tr>
+
+
+        </table>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+<ion-footer>
+
+  <ion-toolbar>
+    <div class="bill-footer">
+      <table>
+        <!-- <tr>
+          <td style="font-weight: 700;">Tích điểm</td>
+          <td class="text-right">
+            <ion-toggle color="primary" [(ngModel)]="sendItem.TichDiem"></ion-toggle>
+          </td>
+        </tr> -->
+
+      </table>
+      <div class="bill-footer-left">
+        <button (click)="handleProduct()">LƯU VẬT TƯ</button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

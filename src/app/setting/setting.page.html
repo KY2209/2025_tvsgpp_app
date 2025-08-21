@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="openBack()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      Cấu hình
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <!-- <ion-icon name="duplicate-outline"></ion-icon> -->
+      </ion-item>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="setting">
+    <div class="setting-header">
+      <ion-icon name="print-outline"></ion-icon>
+      Mẫu in phiếu bán lẻ
+    </div>
+    <div class="setting-content">
+      <table>
+        <tr>
+          <td>
+            <label for="a5">
+              <ion-icon name="reader-outline"></ion-icon>            
+            </label>
+
+          </td>
+          <td>
+            <label for="80">
+              <ion-icon name="receipt-outline"></ion-icon>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="radio" id="a5" name="typePaper" value="A5" (click)="handleTypePaper('A5')"
+                [(ngModel)]="typePaper" />
+          </td>
+          <td>
+            <input type="radio" id="80" name="typePaper" (click)="handleTypePaper('80')" [(ngModel)]="typePaper"
+                value="80" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Mẫu A5
+          </td>
+          <td>Giấy cuộn</td>
+        </tr>
+      </table>
+      <!-- <table>
+        <tr>
+          <td>
+            <div style="display: grid; gap: 15px;">
+              <label for="a5"><i class="bi bi-clipboard2-check"></i></label>
+              <input type="radio" id="a5" name="typePaper" value="A5" (click)="handleTypePaper('A5')"
+                [(ngModel)]="typePaper" />
+              <div style="font-size: 14px;">Mẫu A5</div>
+
+            </div>
+          </td>
+          <td>
+            <div style="display: grid; gap: 15px;">
+              <label for="80">
+                <i class="bi bi-bookmark-dash"></i>
+              </label>
+              <input type="radio" id="80" name="typePaper" (click)="handleTypePaper('80')" [(ngModel)]="typePaper"
+                value="80" />
+              <div style="font-size: 14px;">Giấy cuộn</div>
+            </div>
+          </td>
+        </tr>
+      </table> -->
+    </div>
+    <div class="setting-header">
+      <ion-icon name="document-text-outline"></ion-icon>
+      Hóa đơn mặc định
+    </div>
+    <div class="setting-content">
+      <table class="setting-row">
+        <tr style="border-bottom: 1px dashed #b9b9b9;">
+          <td>Nhập hàng</td>
+          <td (click)="handleNhapHang()" class="text-right blue-dark">{{loaiNHDefault.DienGiai}}</td>
+        </tr>
+        <tr>
+          <td>Bán lẻ</td>
+          <td (click)="handleBanLe()" class="text-right blue-dark">{{loaiBLDefault.DienGiai}}</td>
+
+        </tr>
+      </table>
+    </div>
+
+    <div class="setting-header">
+      <ion-icon name="image-outline"></ion-icon>      
+      Hiển thị hình ảnh
+
+      <input type="checkbox" name="" id="" (click)="handleDisplayImg()" [checked]="displayImg">
+    </div>
+    <div class="setting-header">
+      <ion-icon name="globe-outline"></ion-icon>  
+      Hiển thị liên thông
+
+      <input type="checkbox" name="" id="" (click)="handleLienThong()" [checked]="displayLienThong">
+    </div>
+  </div>
+</ion-content>

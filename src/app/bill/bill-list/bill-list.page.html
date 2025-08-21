@@ -1,0 +1,129 @@
+<ion-header>
+  <ion-toolbar style="--border-width:0px!important;">
+
+    <ion-buttons (click)="openBack()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon class="icon-header" name="chevron-back-outline"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title>
+      Hóa đơn
+      <!-- <span style="text-transform: lowercase;">{{title}}</span> -->
+    </ion-title>
+
+    <ion-buttons slot="end">
+
+      <ion-item lines="none" (click)="checkSearch =! checkSearch"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-item>
+      <ion-item lines="none" (click)="openTypeCT()"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon style="font-size: 26px;" name="menu-outline"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="synthetic">
+    <div *ngIf="checkSearch" class="search-item" style="border-top: 1px solid white;">
+      <div class="synthetic-item synthetic-date">
+        <!-- Năm dữ liệu: -->
+        <table style="width: 100%;">
+          <tr>
+
+            <td>
+              <ion-datetime displayFormat="DD/MM" (ngModelChange)="changeDay($event, 'fromDay')"
+                [(ngModel)]="searchData.fromDay"></ion-datetime>
+
+            </td>
+            <td>
+              <ion-datetime displayFormat="DD/MM" (ngModelChange)="changeDay($event, 'toDay')"
+                [(ngModel)]="searchData.toDay"></ion-datetime>
+
+            </td>
+            <td style="width: 60px; padding: 0px 10px;">
+
+              <ion-datetime displayFormat="YYYY" style=" border: none;" (ngModelChange)="changeYear($event)"
+                [(ngModel)]="sendChungtu.nam_du_lieu">
+              </ion-datetime>
+
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+      <div class="search-form" style="width: 100%;">
+        <input type="text" (keyup)="onSearch($event)" [value]="searchData.keyword"
+          placeholder="Tìm kiếm số chứng từ, nhà cung cấp">
+        <ion-icon (click)="deleteSearch()" *ngIf="searchData.keyword != ''" class="search-icon2"
+          name="close-circle-outline"></ion-icon>
+      </div>
+    </div>
+
+    <div class="synthetic-item" style="font-weight: 600; font-size: 16px; padding: 10px; border-top: 1px solid white;">
+      <div class="synthetic-item-left"> Tổng:</div>
+      <div class="synthetic-item-right">
+        <span>{{sumTT | number}} đ</span>
+      </div>
+    </div>
+    <div class="synthetic-item2">
+      <div class="synthetic-item-left">
+        {{countItem}} hóa đơn
+      </div>
+      <div (click)="openModal('create')" class="synthetic-item2-right">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+
+<ion-content>
+  <div id="myDiv" class="printBill">
+    <app-print-bill [ChungTuInfo]="ChungTuInfo"></app-print-bill>
+  </div>
+
+
+
+
+  <!-- <div class="export-title">{{title}}</div> -->
+
+  <div *ngIf="countItem == 0">
+    <app-no-data></app-no-data>
+  </div>
+  <div class="export" *ngIf="countItem != 0">
+
+    <div *ngFor="let item of listItem; index as i" (click)="presentActionSheet(item.ChungTuID, item.ThoiDiem)"
+      class="export-item" [class]="countItem != i+1 ? 'border-b' : ''" [class.bg-hover]="item.check == true">
+      <div class="export-content">
+        <div class="export-content-item">
+          <div class="export-content-left export-content-title">
+            {{item.SoCT}}
+          </div>
+          <div class="export-content-right">
+            <span>{{item.TongTien | number}}</span>
+          </div>
+        </div>
+        <div class="export-content-item">
+          <div class="export-content-left" style="display: flex; gap: 10px;">
+            <div><ion-icon style="font-size: 20px;" name="time-outline"></ion-icon> </div>{{item.ThoiDiem | date:'HH:mm
+            dd/MM/yyyy' }}
+          </div>
+        </div>
+        <div *ngIf="item.TenDV" class="export-content-item">
+          <div class="export-content-left" style="display: flex; gap: 10px; font-size: 16px;">
+            <div><ion-icon style="font-size: 20px;" name="person-circle-outline"></ion-icon> </div>{{item.TenDV}}
+          </div>
+        </div>
+        <!-- <div class="export-content-item">
+          <div class="export-content-left" [class]="item.UpdateGPP == 0 ? 'red-dark' : 'green-dark'">
+            <span>Trạng thái: </span> {{item.UpdateGPP == 0 ? 'Chưa đồng bộ' : 'Đồng bộ'}}
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+</ion-content>

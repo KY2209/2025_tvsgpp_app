@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="closeModal()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="text-align: center!important;">
+      {{page == 'nhapmua' ? 'Đơn vị' : 'Khách hàng'}} 
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <!-- <ion-icon name="close-circle-outline" style="color: #0764ae; font-size: 25px;"> -->
+          <!-- <ion-icon name="add-outline" style="font-size: 26px;"></ion-icon> -->
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="product-header">
+    <div class="product-search">
+      <input (keyup)="onSearch($event)" [(ngModel)]="keyword" type="text"
+        placeholder="Tìm kiếm tên đơn vị ..." style="text-align: left; background: white;">
+      <!-- <ion-icon class="search-icon" *ngIf="keyword == ''" name="search-outline"></ion-icon> -->
+      <ion-icon (click)="deleteSearch()" *ngIf="keyword != ''" class="search-icon2"
+        name="close-circle-outline"></ion-icon>
+    </div>
+    <div class="product-add">
+        <div class="synthetic-item2">
+          <div class="synthetic-item-left">
+            {{countDV | number}} {{page == 'nhapmua' ? 'đơn vị' : 'khách hàng'}} 
+          </div>
+          <div (click)="addItem('true')" class="synthetic-item2-right">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </div>
+        </div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    
+
+    <div class="container-list">
+      <div  *ngFor="let item of listData" class="container-item" [class]="item.check == true ? 'bg-hover' : ''">
+        
+        <div (click)="chooseItem(item)">
+          <p class="container-title">{{item.TenDV}}</p>
+          <p class="container-desc">{{item.DienThoai}}</p>
+        </div>
+        <div (click)="handleItem(item)" class="container-icon">
+          <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+          <!-- <ion-icon name="file-tray-full-outline"></ion-icon> -->
+        </div>
+        <!-- <ion-icon (click)="chooseItem(item)" class="container-more" name="alert-circle-outline"></ion-icon> -->
+      </div>
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,146 @@
+<div style=" padding: 10px; font-size: 14px; font-family: 'Times New Roman'">
+
+  <div *ngIf="typePaper == '80'" style="width: 300px;">
+
+    <p style="font-weight: 600;">Đơn vị: {{tenCongTy}}</p>
+    <p style="font-weight: 600;">Địa chỉ: {{diaChi}}</p>
+    <p style="text-align: center; font-size: 16px; font-weight: 600; text-transform: uppercase;">PHIẾU {{convertHelper.typeChungTu(itemDetail.LoaiCTID)}}</p>
+    <p>Họ và tên người nhận: {{itemDetail?._TenDVXuat}}</p>
+    <p>Lý do xuất kho:</p>
+
+    <table style="width: 100%; border: 1px solid black; border-spacing: 0;">
+      <thead>
+        <tr>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">STT</th>
+          <th style="border: 1px solid black; padding: 5px 2px; font-size: 14px">Tên hàng</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">ĐVT</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">SL</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">Giá</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">T.Tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itemDetail?.ChiTietHang; index as i">
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{i+1}}</td>
+          <td style="border: 1px solid black; padding: 5px 2px; font-size: 12px;">{{item._TenVT}}</td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{item._DVT}}</td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{item.SoLuong}}
+          </td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{item.DonGia |
+            number}}</td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: right; font-size: 12px;">{{item.ThanhTien |
+            number}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5"
+            style="border: 1px solid black; font-size: 14px; padding: 5px 2px; font-weight: 600; text-align: center;">
+            Tổng tiền:</td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: right; font-size: 12px;">{{sumTongTien |
+            number}}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <p>Tổng số tiền: {{convStringTT}}</p>
+    <table style="width: 100%;">
+      <tr>
+        <td style="text-align: center;"><img style="width: 90px; height: 90px;" [src]="maQR" alt=""></td>
+        <td style="text-align: center; display: block;">
+          <p style="font-weight: 600;">Thu ngân</p>
+          <i>(Ký, họ tên, đóng dấu)</i>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+  <div *ngIf="typePaper == 'A5'">
+    <p style="font-weight: 600;">Đơn vị: {{tenCongTy}}</p>
+    <p style="font-weight: 600;">Địa chỉ: {{diaChi}}</p>
+    <p style="font-weight: 600;">Điện thoại: {{dienthoai}}</p> 
+    <div style="text-align: center; font-size: 16px; font-weight: 600;">PHIẾU XUẤT KHO</div>
+    <div style="text-align: center; margin-top: 5px;">Số CT: {{itemDetail.SoCT}}</div> 
+    <div style="text-align: center; margin-top: 5px; font-style: italic;">Ngày CT: {{dienthoai}}</div> 
+
+    <table style="width: 100%;">
+      <tr>
+        <td>Nhà cung cấp: {{itemDetail._TenDVXuat}}</td>
+        <td>Điện thoại</td>
+      </tr>
+      <tr>
+        <td colspan="2">Địa điểm:</td>
+      </tr>
+      <tr>
+        <td>Kho hàng: {{itemDetail._TenKhoXuat}}</td>
+        <td>Địa điểm: </td>
+      </tr>
+    </table>
+
+    <table style="width: 100%; border: 1px solid black; border-spacing: 0; margin-top: 10px;">
+      <thead>
+        <tr>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">STT</th>
+          <th style="border: 1px solid black; padding: 5px 2px; font-size: 14px">Sản phẩm</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">ĐVT</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">Lô hàng</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">Hạn dùng</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">SL</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">Đơn giá</th>
+          <th style="border: 1px solid black; padding: 5px 2px; text-align: center;  font-size: 14px;">T.Tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itemDetail?.ChiTietHang; index as i">
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{i+1}}</td>
+          <td style="border: 1px solid black; padding: 5px 2px; font-size: 12px;">{{item._TenVT}}</td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{item._DVT}}</td>
+          
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{item.LoHang}}
+          </td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{item.HanDung}}
+          </td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: center; font-size: 12px;">{{item.SoLuong}}
+          </td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: right; font-size: 12px;">{{item.DonGia |
+            number}}</td>
+          <td style="border: 1px solid black; padding: 5px 2px; text-align: right; font-size: 12px;">{{item.ThanhTien |
+            number}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4"
+            style="border: 1px solid black; font-size: 14px; padding: 5px 2px; text-align: right; font-style: italic;">
+            Tổng tiền VAT: {{sumVAT | number}}; Tổng tiền chiết khẩu: {{sumChietKhau | number}}</td>
+          <td colspan="2" style="border: 1px solid black; padding: 5px 2px; text-align: right; font-size: 12px; font-weight: 600;">Tổng tiền hàng: </td>
+            <td colspan="2" style="border: 1px solid black; padding: 5px 2px; text-align: right; font-size: 12px; font-weight: 600;">{{sumTongTien | number}}</td>
+        </tr>
+        <tr>
+          <td colspan="4"
+            style="border: 1px solid black; font-size: 14px; padding: 5px 2px; text-align: right; font-style: italic;">
+            Nợ cũ: ; Tổng nợ: </td>
+          <td colspan="2" style="border: 1px solid black; padding: 5px 2px; text-align: right; font-size: 12px; font-weight: 600;">Tổng tiền phải trả: </td>
+            <td colspan="2" style="border: 1px solid black; padding: 5px 2px; text-align: right; font-size: 12px; font-weight: 600;">{{sumTongTien | number}}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <p>Tổng số tiền (viết bằng chứ): {{convStringTT}}</p>
+    <table style="width: 100%; margin-top: 30px;">
+      <tr>
+        <td style="text-align: center; font-weight: bold;">Người lập phiếu</td>
+        <td style="text-align: center; font-weight: bold;">Người giao hàng/Kiểm hàng</td>
+        <td style="text-align: center; font-weight: bold;">Thủ kho</td>
+        <td style="text-align: center; font-weight: bold;">Kế toán/Thủ trưởng đơn vị</td>
+      </tr>
+      <tr>
+        <td style="font-style: italic; text-align: center;">(Ký, họ tên)</td>
+        <td style="font-style: italic; text-align: center;">(Ký, họ tên)</td>
+        <td style="font-style: italic; text-align: center;">(Ký, họ tên)</td>
+        <td style="font-style: italic; text-align: center;">(Ký, họ tên, đóng dấu)</td>
+      </tr>
+    </table>
+  </div>
+</div>

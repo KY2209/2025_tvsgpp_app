@@ -1,0 +1,35 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+
+    <ion-buttons (click)="openBack()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      Nội dung thông báo
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <!-- <ion-icon name="duplicate-outline"></ion-icon> -->
+      </ion-item>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <table>
+    <tr>
+      <td class="font-bold" style="font-size: 18px;padding-left: 10px;">{{this.tittle}}</td>
+    </tr>
+    <tr>
+      <td style="font-size: 15px;padding-left: 10px;padding-right: 10px;">
+        {{this.content}}
+      </td>
+    </tr>
+  </table>
+
+</ion-content>

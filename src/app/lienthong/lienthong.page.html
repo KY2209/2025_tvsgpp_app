@@ -1,0 +1,351 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons (click)="openBack()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+    <ion-title style="font-weight: 600; text-align: center;">
+      Liên thông dữ liệu
+
+    </ion-title>
+    <ion-buttons slot="end" (click)="checkSearch =! checkSearch">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="funnel-outline" style="font-size: 26px;"></ion-icon>
+
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="synthetic">
+    <div *ngIf="checkSearch" class="search-item">
+      <div class="synthetic-item synthetic-date">
+        <!-- Năm dữ liệu: -->
+        <table style="width: 100%;">
+          <tr>
+
+            <td>
+              <ion-datetime displayFormat="DD/MM" (ngModelChange)="changeDay($event, 'fromDay')"
+                [(ngModel)]="searchData.fromDay"></ion-datetime>
+
+            </td>
+            <td>
+              <ion-datetime displayFormat="DD/MM" (ngModelChange)="changeDay($event, 'toDay')"
+                [(ngModel)]="searchData.toDay"></ion-datetime>
+
+            </td>
+            <td style="width: 60px; padding: 0px 0px 10px 0px;">
+
+              <ion-datetime displayFormat="YYYY" style=" border: none;" (ngModelChange)="changeYear($event)"
+                [(ngModel)]="sendChungtu.nam_du_lieu">
+              </ion-datetime>
+
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+
+
+
+  <div style="font-weight: bold;">
+
+    <table style="width: 100%;height: 20px; font-size: 15px; background-color: #F1EFF3;color: #052761;">
+      <tr>
+        <td style="text-align: center;padding-top: 5px;">
+          <div class="export-content-left export-content-title">
+            Trong ngày hoặc từ ngày đến ngày
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div style="padding-top:10px;padding:10px;">
+      <table class="s-border">
+        <tr>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td
+                  style="text-align: center; vertical-align: middle!important; font-size: 14px;font-weight: bold; padding: 5px;color: #000000;">
+                  Hóa đơn
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td
+                  style="text-align: center; vertical-align: middle!important; font-size: 14px;font-weight: bold; padding: 5px;color: #000000;">
+                  Phiếu nhập
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td
+                  style="text-align: center; vertical-align: middle!important; font-size: 14px;font-weight: bold; padding: 5px;color: #000000;">
+                  Phiếu xuất
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td
+                  style="text-align: center; vertical-align: middle!important; font-size: 15px;font-weight: bold; padding: 5px;color: #000000;">
+                  #
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%!important; max-width: 100%!important;border: 0.5px solid #dedeff!important;"
+        *ngFor="let item of LienthongData">
+
+
+        <tr *ngIf="item.StatusGpp =='XN'">
+
+
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongHoaDon}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongPhieuNhap}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongPhieuXuat}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td
+                  style="text-align: center; vertical-align: middle!important; font-size: 25px;font-weight: bold; padding: 5px;">
+                  <ion-icon name="checkmark-outline"></ion-icon>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr *ngIf="item.StatusGpp =='CXN'">
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongHoaDon}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongPhieuNhap}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongPhieuXuat}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 25px; padding: 5px;">
+                  <ion-icon name="close-outline"></ion-icon>
+
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr *ngIf="item.StatusGpp =='TB'">
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongHoaDon}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongPhieuNhap}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td style="text-align: center; vertical-align: middle!important; font-size: 14px; padding: 5px;">
+                  {{item.TongPhieuXuat}}
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td style="width: 25%;border: 0.5px solid #dedeff!important;">
+
+            <table style="width: 100%!important; max-width: 100%!important;">
+              <tr>
+                <td
+                  style="text-align: center; vertical-align: middle!important; font-size: 25px;color: #ec1212; padding: 5px;">
+                  <ion-icon name="alert-outline"></ion-icon>
+
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+
+
+      </table>
+    </div>
+
+  </div>
+
+  <div style=" margin-top: 5px;font-weight: bold;">
+    <table
+      style="width: 100%;height: 20px; font-size: 15px;padding-top: 20px!important; padding: 10px;background-color: #F1EFF3;color: #052761;">
+      <tr>
+        <td style="text-align: center;padding-top: 5px;">
+          <div class="export-content-left export-content-title">
+            Thông tin chưa đồng bộ thành công
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <table style="width: 100%;color: #3880ff;border: solid 1px #F1EFF3;padding-top: 20px!important;">
+      <tr>
+        <td style="width: 505;padding-left: 5px;">
+          <div class="export-content-left export-content-title">
+            XBL123456789
+            <ion-icon name="unlink-outline" style="color: #000000;font-size: 22px;vertical-align:middle;">
+            </ion-icon>
+          </div>
+          <div style="color: #0764ae;font-size: 12px;">
+            <ion-icon name="time-outline" style="color: #A364BF;vertical-align:middle;font-size: 13px;"></ion-icon>
+            14:27 20/04/2024
+          </div>
+          <div style="color: #0764ae;font-size:13px">
+            <ion-icon name="person-circle-outline" style="vertical-align:middle;font-size:13px"></ion-icon>
+            Nguyễn Văn Khoa
+          </div>
+        </td>
+        <td style="width: 505;text-align: right;padding-right: 10px;vertical-align: top;">
+          <div class="export-content-left export-content-title">
+            8,500
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <table style="width: 100%;color: #3880ff;border: solid 1px #F1EFF3;padding-top: 20px!important;">
+      <tr>
+        <td style="width: 505;padding-left: 5px;">
+          <div class="export-content-left export-content-title">
+            XBL123456789
+            <ion-icon name="unlink-outline" style="color: #000000;font-size: 22px;vertical-align:middle;">
+            </ion-icon>
+          </div>
+          <div style="color: #0764ae;font-size: 12px;">
+            <ion-icon name="time-outline" style="color: #A364BF;vertical-align:middle;font-size: 13px;"></ion-icon>
+            14:27 20/04/2024
+          </div>
+          <div style="color: #0764ae;font-size:13px">
+            <ion-icon name="person-circle-outline" style="vertical-align:middle;font-size:13px"></ion-icon>
+            Nguyễn Văn Khoa
+          </div>
+        </td>
+        <td style="width: 505;text-align: right;padding-right: 10px;vertical-align: top;">
+          <div class="export-content-left export-content-title">
+            8,500
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <table style="width: 100%;color: #3880ff;border: solid 1px #F1EFF3;padding-top: 20px!important;">
+      <tr>
+        <td style="width: 505;padding-left: 5px;">
+          <div class="export-content-left export-content-title">
+            XBL123456789
+            <ion-icon name="unlink-outline" style="color: #000000;font-size: 22px;vertical-align:middle;">
+            </ion-icon>
+          </div>
+          <div style="color: #0764ae;font-size: 12px;">
+            <ion-icon name="time-outline" style="color: #A364BF;vertical-align:middle;font-size: 13px;"></ion-icon>
+            14:27 20/04/2024
+          </div>
+          <div style="color: #0764ae;font-size:13px">
+            <ion-icon name="person-circle-outline" style="vertical-align:middle;font-size:13px"></ion-icon>
+            Nguyễn Văn Khoa
+          </div>
+        </td>
+        <td style="width: 505;text-align: right;padding-right: 10px;vertical-align: top;">
+          <div class="export-content-left export-content-title">
+            8,500
+          </div>
+        </td>
+      </tr>
+    </table>
+
+
+
+  </div>
+
+
+</ion-content>

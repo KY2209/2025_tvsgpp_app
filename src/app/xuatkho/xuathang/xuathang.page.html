@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="openBack()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon class="icon-header" name="chevron-back-outline"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      {{title}}
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-item lines="none" (click)="checkCalender = ! checkCalender"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon style="font-size: 26px;" name="calendar-outline"></ion-icon>
+      </ion-item>
+      <ion-item lines="none" (click)="checkSearch = ! checkSearch"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div id="myDiv" class="printBill"> 
+    <app-print-bill [ChungTuInfo]="ChungTuInfo"></app-print-bill>
+  </div>
+
+
+  <div class="synthetic">
+    <div *ngIf="checkCalender" class="synthetic-item synthetic-date">
+      Năm dữ liệu:
+      <!-- <span (click)="handleDate()"> {{sendChungtu.nam_du_lieu}}</span> -->
+      <span> <ion-datetime displayFormat="YYYY" (ngModelChange)="changeYear($event)" [(ngModel)]="sendChungtu.nam_du_lieu"></ion-datetime></span>
+
+     
+    </div>
+
+    <div *ngIf="checkSearch" class="search-item">
+      <div class="search-form" style="width: 100%;">
+        <input type="text" (keyup)="onSearch($event)" [value]="sendData.dieukien" placeholder="Tìm kiếm số chứng từ">
+        <ion-icon (click)="deleteSearch()" *ngIf="sendData.dieukien != ''" class="search-icon2"
+          name="close-circle-outline"></ion-icon>
+      </div>
+      <!-- 
+        <button (click)="getData()" class="search-btn">
+          <ion-icon class="search-icon" name="search-outline"></ion-icon>
+        </button> -->
+    </div>
+
+    <div class="synthetic-item">
+      <div class="synthetic-item-left">
+        <span>{{countItem | number}}</span> phiếu
+      </div>
+      <div class="synthetic-item-right">
+        Tổng: <span>{{sumTT | number}}</span>
+      </div>
+    </div>
+  </div>
+ 
+  <div *ngIf="countItem == 0">
+    <app-no-data></app-no-data>
+  </div>
+  <div class="export" *ngIf="countItem != 0">
+
+    <div *ngFor="let item of listItem; index as i" (click)="presentActionSheet(item.ChungTuID, item.ThoiDiem)"
+      class="export-item" [ngClass]="countItem != i+1 ? 'border-b' : ''">
+      <div class="export-icon">
+        <ion-icon name="wallet-outline"></ion-icon>
+      </div>
+      <div class="export-content">
+        <div class="export-content-item">
+          <div class="export-content-left" style="font-weight: 600;">
+            {{item.SoCT}}
+          </div>
+          <div class="export-content-right">
+            <span>{{item.TongTien | number}}</span>
+          </div>
+        </div>
+        <div class="export-content-item">
+          <div class="export-content-left">
+            {{item.ThoiDiem | date:'dd/MM/yyyy | HH:mm' }}
+          </div>
+        </div>
+        <div class="export-content-item">
+          <div class="export-content-left">
+            <button class="btn-db" [class]="item.UpdateGPP == 0 ? 'bg-gray1' : 'bg-blue1'">Đồng bộ</button>
+            
+          </div>
+        </div>
+        <!-- <div style="display: flex; margin-bottom: 5px;">
+          <div class="export-content-left">
+            ConfigContext (Viên)
+          </div>
+          <div class="export-content-right">
+            <span>x 200</span>
+          </div>
+        </div>
+        <div class="export-content-item">
+          <div class="export-content-left export-content-sm">
+            và 3 sản phẩm khác
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openModal(true)" style="width: 50px!important; height: 50px!important;">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,320 @@
+<ion-header>
+  <ion-toolbar style="--border-width:0px!important;--background:#fff;">
+
+    <ion-title style="text-align: center!important; color: #7077d6;">
+      <table style="width: 100%!important; max-width: 100%!important;">
+        <tr>
+          <td style="text-align: center!important;">
+            <div style="text-align: center;">
+              Phiếu nhập hàng
+            </div>
+          </td>
+        </tr>
+      </table>
+
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style="--background:#fff; --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+
+        <ion-icon name="close-circle-outline" style="color: #7077d6; font-size: 25px;" (click)="closeModal()">
+        </ion-icon>
+
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="background-color: #ddd;">
+    <div style="padding: 10px;">
+
+      <div style="margin-top: 20px;">
+
+
+        <table style="width: 100%!important; max-width: 100%!important;">
+          <tr>
+            <td style="padding-left: 5px;width:100%;font-size: 17px; font-weight: bold; color: #7077d6;">
+              Loại chứng từ:
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 20px!important;padding-left: 5px; padding-top: 5px; text-align: justify;width:100%;">
+              <select value="{{loaiChungTu}}" (change)="onLoaiCTChange($event)"
+                style="font-size: 20px!important; width: 100%!important; max-width: 100%!important; --padding-top: 0px; --padding-end: 5px; --padding-bottom: 0px; --padding-start: 0px; border: solid 0px #ddd;background-color: #fff;">
+                <option *ngFor="let item of lstChungTu" value="{{item.LoaiCTID}}">
+                  {{item.DienGiai}}
+                </option>
+              </select>
+            </td>
+          </tr>
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+          <tr>
+            <td
+              style="font-weight: bold;padding-left: 5px;width:100%; text-align: justify;font-size: 17px;color: #7077d6;">
+              Ngày tháng:
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 0px!important;padding-left: 5px;padding-top: 5px;">
+              <ion-datetime displayFormat="DD/MM/YYYY" min="2015-01-01" max="2025-12-31" [(ngModel)]="ngayNhap"
+                Style="padding-left: 10px;width: 100%; text-align:justify; border-radius: 3px; color: #000;--padding-top: 5px;--padding-end: 5;--padding-bottom: 5px;--padding-start: 5px;background-color: #fff; border: solid 1px #ddd;font-size: 20px;">
+              </ion-datetime>
+            </td>
+          </tr>
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+          <tr>
+            <td style="width:100%;font-size: 17px;color: #7077d6;padding-left: 5px;font-weight: bold;">
+              Tên Nhà Cung Cấp:
+            </td>
+          </tr>
+          <tr>
+
+            <td style="padding-left: 5px; text-align: justify;padding-top: 5px;padding-top: 5px;">
+              <ion-input type="text" [(ngModel)]="DVNhap"
+                style="border:solid 1px #ddd; border-radius: 2px;background-color: #fff;">
+              </ion-input>
+            </td>
+          </tr>
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+          <tr>
+            <td style="padding-left: 5px;width:100%;font-size: 17px;color: #7077d6;font-weight: bold;">
+              Kho nhập:
+            </td>
+          </tr>
+          <tr>
+
+            <td style="padding-left: 5px; text-align: justify;width:60%;padding-top: 5px;">
+              <div style="font-size: 20px;">
+                <select value="{{loaikho}}" (ionChange)="onkhoChange($event)"
+                  style="width: 100%!important; max-width: 100%!important; --padding-top: 0px; --padding-end: 5px; --padding-bottom: 0px; --padding-start: 0px; border: solid 0px #ddd;background-color: #fff;">
+                  <option *ngFor="let items of lstKho" value="{{items.MaKho}}">{{items.TenKho}}
+                  </option>
+                </select>
+              </div>
+
+            </td>
+          </tr>
+        </table>
+
+        <table
+          style="padding-left: 5px;width: 100%!important; max-width: 100%!important; margin-top: 10px;font-size: 20px;">
+          <tr>
+            <td style="color: #7077d6;padding-left: 5px;font-size:17px;font-weight: bold;">
+              Tên hàng hóa
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 5px; text-align: justify;padding-top: 5px;">
+              <ion-input type="text" (ionBlur)="closeList()" (ionInput)="filterProduct($event)" [(ngModel)]="tenHanghoa"
+                (ngModelChange)="doSomething()"
+                style="border:solid 1px #ddd; border-radius: 2px; font-weight: bold;background-color: #fff;">
+              </ion-input>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:100%" *ngIf="this.showProduct">
+
+              <div *ngFor="let item of lstHangHoa" style="padding: 5px!important;font-size: 15px;">
+                <div (click)="selectHanghoa(item)">
+                  <table style="width:100%;  max-width: 100%!important;background-color: #fff;">
+                    <tr>
+                      <td style="width:50%">
+                        {{item.TenVT}}
+                      </td>
+                      <td style="width:20%; padding: 5px;">{{item.DVT}}</td>
+                      <td style="width:30%;">{{item.GiaMua}}</td>
+                    </tr>
+                  </table>
+                </div>
+
+              </div>
+
+            </td>
+          </tr>
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;font-size: 20px;">
+          <tr>
+            <td
+              style="font-weight: bold;font-size:17px;color: #7077d6;width: 100%; padding-left:5px; text-align: justify; padding-right: 5px!important;">
+              Số lượng:
+            </td>
+
+          </tr>
+          <tr>
+
+            <td style="width: 100%; padding-left: 5px; text-align: justify;padding-top: 5px;">
+              <ion-input [(ngModel)]="SoLuongNhap" type="tel"
+                style="border:solid 1px #ddd; border-radius: 2px;background-color: #fff;">
+              </ion-input>
+            </td>
+          </tr>
+
+
+
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+          <tr>
+
+            <td
+              style="font-weight: bold;font-size: 17px;color: #7077d6;width: 100%; padding-left: 5px; text-align: justify; padding-right: 5px!important;margin-top: 10px;">
+              Hạn dùng:
+            </td>
+          </tr>
+          <tr>
+
+            <td style="width: 100%; padding-left: 5px; text-align: justify;padding-top: 5px;">
+              <ion-datetime displayFormat="DD/MM/YYYY" min="2015-01-01" max="2025-12-31" [(ngModel)]="HanDung"
+                Style="width: 100%; text-align:justify; border-radius: 3px; color: #000;--padding-top: 5px;--padding-end: 5;--padding-bottom: 5px;--padding-start: 5px;background-color: #fff; border: solid 1px #ddd;font-size: 20px;">
+              </ion-datetime>
+            </td>
+          </tr>
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+          <tr>
+            <td
+              style="font-weight: bold;font-size: 17px;color: #7077d6;width: 100%; padding-left: 5px; text-align: justify; padding-right: 5px!important;margin-top: 10px;">
+              Lô hàng:
+            </td>
+          </tr>
+          <tr>
+
+            <td style="width: 100%; padding-left: 5px; text-align: justify;padding-top: 5px;">
+              <ion-input [(ngModel)]="LoHang" type="tel"
+                style="border:solid 1px #ddd; border-radius: 2px;background-color: #fff;">
+              </ion-input>
+            </td>
+          </tr>
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+          <tr>
+            <td style="padding-left: 5px; text-align: justify;">
+              <div (click)="updateBillDetail()"
+                style="padding: 10px; margin-top: 10px; width: 100%; float: right; text-align: center; border-radius: 4px; background-color: #8c6b44; color: #fff;">
+                Ghi nhận
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <table
+          style="padding-left: 5px; width: 100%!important; max-width: 100%!important; margin-top: 15px; margin-bottom: 15px;">
+          <tr>
+            <td style="padding-bottom: 5px!important; font-weight: bold;">
+              <ion-icon name="options-outline"
+                style="font-weight: bold;color: #7077d6;font-size: 25px; margin-bottom: -6px;"></ion-icon>
+              &nbsp;Thông tin đơn thuốc
+            </td>
+            <td style="width: 40px; text-align: right;">
+              &nbsp;
+            </td>
+          </tr>
+        </table>
+
+        <table *ngIf="this.lstBillDetail.length > 0"
+          style="padding-left: 5px;color: #7077d6;width:100%;  max-width: 100%!important; margin-top: 10px;font-weight: bold;background-color: #fff;">
+          <tr>
+            <td style="width:50%">
+              Tên VT (Đơn vị tính)
+            </td>
+            <td style="width:20%; padding: 5px;">SL</td>
+            <td style="width:30%; padding: 5px;text-align: end;">Thành tiền</td>
+          </tr>
+        </table>
+
+        <div style="padding-left: 5px;padding: 5px!important; border-radius: 2px;"
+          *ngIf="this.lstBillDetail.length > 0">
+
+          <table *ngFor="let items of lstBillDetail"
+            style="width:100%;  max-width: 100%!important;background-color: #fff;">
+            <tr>
+              <td style="width:50%">{{items.TenVT}}({{items.DVT}})</td>
+              <td style="width:20%; padding: 5px;text-align: justify;">{{items.SoLuong}}</td>
+              <td style="width:30%; padding: 5px;text-align: end;">{{items.ThanhTien}}</td>
+            </tr>
+
+          </table>
+        </div>
+
+
+
+
+
+      </div>
+
+      <div style="margin-top: 20px;background-color: #fff;padding-left: 5px;">
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+          <tr>
+            <td style="width:50%">
+              Tổng tiền:
+            </td>
+            <td style="text-align: justify;">
+              <ion-input [(ngModel)]="TongTien" type="tel"
+                style="border:solid 1px #ddd; border-radius: 2px;background-color: #fff;">
+              </ion-input>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:50%">
+              Thanh toán:
+            </td>
+            <td style="text-align: justify;padding-top: 5px;">
+              <ion-input [(ngModel)]="ThanhToan" type="tel"
+                style="border:solid 1px #ddd; border-radius: 2px;background-color: #fff;">
+              </ion-input>
+            </td>
+          </tr>
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 10px;">
+          <tr>
+            <td style="width:50%">
+              Hình thức thanh toán:
+            </td>
+            <td style="padding-left: 0px; text-align: justify;width:60%">
+              <ion-select interface="action-sheet" value="{{loaiThanhToan}}"
+                style="width: 100%!important; max-width: 100%!important; --padding-top: 0px; --padding-end: 5px; --padding-bottom: 0px; --padding-start: 0px; border: solid 0px #ddd;background-color: #fff;">
+                <ion-select-option *ngFor="let items of lstThanhToan" value="{{items.MaLoai}}">
+                  {{items.TenLoai}}</ion-select-option>
+
+              </ion-select>
+            </td>
+          </tr>
+        </table>
+
+        <table style="width: 100%!important; max-width: 100%!important; margin-top: 20px; margin-bottom: 10px;">
+          <tr>
+            <td style="padding: 0px;">
+
+              <div *ngIf="this.Saving"
+                style="padding: 10px; margin-top: 10px; width: 100%; float: right; text-align: center; border-radius: 4px; background-color: #bebaf0; color: #fff;">
+                <ion-spinner name="lines-small"
+                  style="margin-bottom: -10px!important; margin-top: -5px!important; color: #fff;"></ion-spinner>
+                &nbsp;Đang xử lý đơn hàng, vui lòng đợi!
+              </div>
+
+              <div *ngIf="!this.Saving" (click)="savePhieunhap()"
+                style="padding: 10px; margin-top: 10px; width: 100%; float: right; text-align: center; border-radius: 4px; background-color: #4b42cf; color: #fff;">
+                Lưu đơn hàng
+              </div>
+
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

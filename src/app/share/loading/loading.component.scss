@@ -1,0 +1,43 @@
+.loading{
+  background-color: rgb(0 0 0 / 10%);
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 999999;
+}
+
+
+
+.loading-icon {
+  position: absolute;
+  z-index: 99999;
+  top: 45%;
+  left: 45%;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #0060a6;
+  border-bottom-color: #eaeaea;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
+
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .loading-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

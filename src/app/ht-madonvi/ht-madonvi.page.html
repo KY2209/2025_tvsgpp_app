@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title><center>Xác định mã đơn vị</center></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div style="padding: 50px; padding-bottom: 20px!important; margin-top: 0px;">
+    Vui lòng nhập mã đơn vị đã được cấp trước khi sử dụng phần mềm!
+  </div>
+
+  <div
+    style="width: 100%!important; max-width: 100%!important; background-color: #fff; padding: 50px!important; padding-top: 0px!important; margin-top: 0px!important;">
+    <table style="width: 100%!important; max-width: 100%!important; background-color: #fff;">
+      <tr>
+        <td style = "text-align: justify; padding-bottom: 10px;">
+          Mã đơn vị
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center;">
+          <ion-input type="text" [(ngModel)]="this.ORG_CODE"
+            style="--padding-start:10px!important;color: #1349eb; background-color: aliceblue; font-weight: bold; font-size: 20px; text-align: center; text-transform: uppercase; border: solid 1px #cecece!important; border-radius: 4px;"
+            placeholder="">
+          </ion-input>
+        </td>
+      </tr>
+    </table>
+
+    <div style="margin-top: 15px;" *ngIf = "this.ORG_CODE != ''">
+
+      <ion-button *ngIf="this.logStatus" (click)="ghiDuLieu()"
+        style="font-weight: bold;--background:#21409a!important; --border-border-radius:30px!important;">
+        Xác thực mã đơn vị
+      </ion-button>
+
+      <ion-button *ngIf="!this.logStatus" style="font-weight: bold;--background:#21409a!important;">
+        <ion-spinner name="lines"></ion-spinner>&nbsp;Đang kiểm tra, vui lòng đợi...
+      </ion-button>
+
+    </div>
+
+    <!-- <ion-button (click)="ghiDuLieu()"
+      style="font-weight: bold;--background:#21409a!important; --border-border-radius:30px!important;">
+      GHI DU LIEU
+    </ion-button>
+    
+    <ion-button (click)="docDuLieu()"
+      style="font-weight: bold;--background:#21409a!important; --border-border-radius:30px!important;">
+      DOC DU LIEU
+    </ion-button> -->
+
+  </div>
+
+</ion-content>

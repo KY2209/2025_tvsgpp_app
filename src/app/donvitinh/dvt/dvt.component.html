@@ -1,0 +1,23 @@
+<ion-content>
+  <div class="dvt">
+    <table>
+      <thead>
+        <tr>
+          <th class="text-left">Đơn vị tính</th>
+          <th class="text-right">Đơn giá</th>
+          <th class="text-right">Quy đổi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listDVT" [class.bg-hover]="item.DVT == DVT" (click)="handleDVT(item)">
+          <td class="text-left">{{item.DVT}}</td>
+          <td *ngIf="InOutType=='N'" class="text-right">{{item.GiaMua | number}}</td>
+          <td *ngIf="InOutType!='N'" class="text-right">{{item.GiaBanLe | number}}</td>
+          <td class="text-right">{{item.SoLuongQuyDoi}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+</ion-content>

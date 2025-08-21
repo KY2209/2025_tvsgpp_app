@@ -1,0 +1,95 @@
+.home {
+    padding: 15px 15px 10px 15px; 
+    // background-color: #f3f3f3;
+
+    &-card {
+        position: relative;
+        background: #0764ae;
+        height: 80px;
+
+        &-form {
+            position: absolute;
+            width: 100%;
+            top: 0px;
+            width: 100%;
+            padding: 0 15px;
+        }
+
+        &-content{
+            background: white; 
+            padding: 10px 10px; 
+            width: 100%; 
+            display: flex; 
+            align-items: center; 
+            border-radius: 14px 14px 0 0; 
+            // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            color: var(--background-color);
+        }
+
+        &-number{
+            font-size: 28px; 
+            font-weight: 600; 
+            display:flex; 
+            gap: 8px; 
+            // margin-top: 4px;
+
+            div{
+                font-size: 16px;
+            }
+        }
+
+        &-left{
+            margin-left: auto;
+        }
+
+        &-item{
+            background: #FF3333;
+            color: white;
+            text-align: center;
+            padding: 10px 6px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    }
+
+    &-title{
+        font-size: 18px; 
+        font-weight: 600;
+        color: var(--background-color);
+    }
+
+    &-item {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+
+        &-card {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0764ae;
+            color: white;
+            border-radius: 8px;
+        }
+
+        &-title {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            color: #0764ae;
+        }
+
+        ion-icon {
+            font-size: 25px;
+        }
+    }
+}
+
+ion-toolbar {
+    --background: var(--background-color);
+}

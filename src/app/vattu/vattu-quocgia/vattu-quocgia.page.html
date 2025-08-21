@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="closeModal()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      Thuốc dược quốc gia
+    </ion-title> 
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <!-- <ion-icon name="add-outline" style="font-size: 26px;"></ion-icon> -->
+      </ion-item>
+
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="product-header">
+    <div class="product-search">
+      <input (keyup)="onSearch($event)" [(ngModel)]="keyword" type="text"
+        placeholder="Tìm kiếm tên vật tư ..." style="text-align: left; background: white;">
+      <!-- <ion-icon class="search-icon" *ngIf="pageInfo.keyword == ''" name="search-outline"></ion-icon> -->
+      <ion-icon (click)="deleteSearch()" *ngIf="keyword != ''" class="search-icon2"
+        name="close-circle-outline"></ion-icon>
+    </div>
+    <!-- <div class="product-add">
+        <div class="synthetic-item2">
+          <div class="synthetic-item-left">
+            {{countVattu | number}} vật tư trong danh sách
+          </div>
+          <div (click)="addItem('true')" class="synthetic-item2-right">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </div>
+        </div>
+    </div> -->
+  </div>
+</ion-header>
+
+
+<ion-content>
+  
+
+  <div class="product">
+    <div (click)="getItem(item)" *ngFor="let item of listVattu; index as i" class="product-item border-b" [class]="item.checkHover == true ? 'bg-hover' : ''">
+
+      <div class="product-content">
+        <div class="product-content-item">
+          <div class="product-content-left product-content-title">
+            {{item.TenVT}} ({{item.MaDuocQG}})
+          </div>
+          
+        </div>
+        <div class="product-content-item mt-10">
+          <div class="product-content-left">
+            <span>ĐVT:</span>
+            <span>
+              {{item.DVT}}
+            </span>
+
+          </div>
+
+          <div class="product-content-right">
+            <div class="product-content-left">
+              <span>SĐK:</span>
+              {{item.SoDangKy}}
+           
+            </div>
+
+          </div>
+        </div>
+        <div class="product-content-item mt-10">
+          <div class="product-content-left">
+            <span>Hoạt chất chính:</span>
+            {{item.HoatChatChinh}}
+
+          </div>
+         
+        </div>
+        <div class="product-content-item mt-10">
+          <div class="product-content-left">
+            <span>Quy cách:</span>
+            {{item.QuyCach}}
+
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

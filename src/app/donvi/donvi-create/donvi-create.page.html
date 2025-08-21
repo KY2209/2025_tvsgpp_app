@@ -1,0 +1,82 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>donvi-create</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="unit">
+    <div class="unit-header">
+      <div class="unit-title">{{isCreate == 'true' ? 'Thêm' : 'Sửa'}} {{page == 'nhapmua' ? 'đơn vị' : 'khách hàng'}} </div>
+      <ion-icon (click)="closeModal()" name="close-outline"></ion-icon>
+    </div>
+    <table class="w-full">
+      <tr>
+        <td colspan="2">
+          <div class="unit-item">
+            <label for="">Tên {{page == 'nhapmua' ? 'đơn vị' : 'khách hàng'}}  <span class="text-err">*</span></label>
+            <input type="text" [(ngModel)]="sendItem.TenDV">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td *ngIf="submit && !sendItem.TenDV" colspan="2" style="padding-top: 10px;">
+          <div class="text-err">
+            Trường bắt buộc nhập
+          </div>
+        </td>
+      </tr>
+      <tr>
+        
+        <td>
+          <div class="unit-item pr-5">
+            <label for="">Loại {{page == 'nhapmua' ? 'đơn vị' : 'khách hàng'}}  <span class="text-err">*</span></label>
+            <!-- <input type="text" [(ngModel)]="sendItem.LoaiDV"> -->
+            <div class="unit-input" (click)="handleType()"> {{loaiDV}}</div>
+          </div>
+        </td>
+        <td>
+          <div class="unit-item pl-5">
+            <label for="">Nhóm {{page == 'nhapmua' ? 'đơn vị' : 'khách hàng'}} </label>
+            <input type="text" [(ngModel)]="sendItem.NhomDV">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        
+        <td>
+          <div class="unit-item pr-5">
+            <label for="">Mã GPP</label>
+            <input type="text" [(ngModel)]="sendItem.MaGPP">
+          </div>
+        </td>
+        <td colspan="2">
+          <div class="unit-item pl-5">
+            <label for="">Điện thoại</label>
+            <input type="text" [(ngModel)]="sendItem.DienThoai">
+          </div>
+        </td>
+        
+      </tr>
+      
+      <tr>
+        <td  colspan="2">
+            <div class="unit-item">
+              <label for="">Địa chỉ</label>
+              <input type="text" [(ngModel)]="sendItem.DiaChi">
+            </div>
+        </td>
+      </tr>
+    </table>
+
+  </div> 
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+
+  <div class="unit-footer">
+    <button (click)="confirmSubmit()">{{isCreate == 'true' ? 'THÊM' : 'SỬA'}} {{page == 'nhapmua' ? 'đơn vị' : 'khách hàng'}}  </button>
+  </div>
+</ion-toolbar>
+
+</ion-footer>

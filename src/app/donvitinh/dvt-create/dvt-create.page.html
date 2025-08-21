@@ -1,0 +1,69 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>donvi-create</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="unit">
+    <div class="unit-header">
+      <div class="unit-title">Đơn vị tính</div>
+      <ion-icon (click)="closeModal()" name="close-outline"></ion-icon>
+    </div>
+    <table class="w-full">
+      <tr>
+        <td colspan="2">
+          <div class="unit-item">
+            <label for="">Đơn vị tính <span class="text-err">*</span></label>
+            <input type="text" [(ngModel)]="sendItem.DVT">
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="submit && !sendItem.DVT" class="no-border-top">
+        <td colspan="2" class="text-err"  style="padding-top: 8px !important;">
+          Trường bắt buộc nhập
+        </td>
+      </tr>
+  
+ 
+      <tr>
+        <td>
+            <div class="unit-item pr-5">
+              <label for="">Quy đổi thành</label>
+              <input type="number" [(ngModel)]="sendItem.SoLuongQuyDoi" >
+            </div>
+        </td>
+        <td>
+          <div class="unit-item pl-5">
+            <label for="">Đơn giá mua</label>
+            <input type="text" [(ngModel)]="this.sendItemConv.GiaMua" (ngModelChange)="formatInput('GiaMua', $event)">
+          </div>
+      </td>
+      </tr>
+      <tr>
+        <td>
+            <div class="unit-item pr-5">
+              <label for="">Đơn giá bán lẻ</label>
+              <input type="text" [(ngModel)]="this.sendItemConv.GiaBanLe" (ngModelChange)="formatInput('GiaBanLe', $event)">
+            </div>
+        </td>
+        <td>
+          <div class="unit-item pl-5">
+            <label for="">Đơn giá bán sỷ</label>
+            <input type="text" [(ngModel)]="this.sendItemConv.GiaBanSy" (ngModelChange)="formatInput('GiaBanSy', $event)">
+          </div>
+      </td>
+      </tr>
+    </table>
+
+  </div> 
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+
+  <div class="unit-footer">
+    <button (click)="confirmSubmit()">LƯU ĐƠN VỊ TÍNH </button>
+  </div>
+</ion-toolbar>
+
+</ion-footer>

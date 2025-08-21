@@ -1,0 +1,73 @@
+<ion-header>
+
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon (click)="openBack()" name="arrow-back-outline"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="text-align: center!important;">
+      Thông báo mới
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style="color: #fff; --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon *ngIf="this.TabIndex == 2" (click)="openTab(1)" name="close-circle-outline" style="font-size: 25px;">
+        </ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div>
+
+    <div style="padding: 10px;">
+
+      <table style="width: 100%!important; max-width: 100%!important;">
+        <tr>
+          <td style="padding: 0px!important;">
+            <ion-searchbar showCancelButton="always" color="light" style="--border-radius:1px;"
+              placeholder="Tìm kiếm thông tin" (ionInput)="filterInfo($event)" [(ngModel)]="Keyword"
+              style="--font-size:20px!important;" clearInput>
+            </ion-searchbar>
+          </td>
+          <td style="padding: 0px!important; padding: 10px!important; width: 40px; text-align: right;">
+            <ion-icon (click)="getThongBaoGPP()" name="search-outline" style="font-size: 25px;
+            margin-bottom: -5px !important;            
+            padding: 9px;
+            border: solid 1px #7077d6;
+            border-radius: 4px;
+            color: #7077d6;"></ion-icon>
+          </td>
+        </tr>
+      </table>
+
+      <div *ngFor="let item of lstThongBao" style="margin-top: 20px;">
+
+        <div style="margin-bottom: 15px; border-bottom: solid 1px #ddd; padding-bottom: 5px;">
+          <table style="width: 100%!important; max-width: 100%!important; margin-bottom: 0px;"
+            (click)="viewDetail(item.Id)">
+            <tr>
+              <td style="padding-bottom: 5px;padding-left: 5px;">
+                <div style="font-size: 15px;font-weight: bold;">
+                  <p>{{item.TieuDe}}</p>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

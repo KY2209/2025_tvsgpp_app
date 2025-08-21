@@ -1,0 +1,128 @@
+<ion-header>
+  <ion-toolbar style="--border-width:0px!important;--background:#fff;">
+    <ion-buttons slot="start">
+      <ion-item lines="none"
+        style="--background:#fff; --padding-start: 0px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon *ngIf="TabIndex == 1" (click)="openBack()" name="chevron-back-outline" style="color: #7077d6;">
+        </ion-icon>
+        <ion-icon *ngIf="TabIndex != 1" name="chevron-back-outline" style="color: #f1f1f7;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="text-align: center!important; color: #7077d6;">
+      <table style="width: 100%!important; max-width: 100%!important;">
+        <tr>
+          <td style="text-align: center!important;">
+            <div style="text-align: center;">
+              Phiếu nhập hàng
+            </div>
+          </td>
+        </tr>
+      </table>
+
+
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="TabIndex == 1">
+
+    <div style="padding: 10px;">
+
+      <table style="width: 100%!important; max-width: 100%!important;">
+        <tr>
+          <td style="width: 50%!important; padding: 10px!important;">
+            <ion-datetime displayFormat="DD/MM/YYYY" min="2015-01-01" max="2025-12-31" [(ngModel)]="tuNgay"
+              Style="width: 100%; text-align: center; border-radius: 3px; color: #000;--padding-top: 5px;--padding-end: 5;--padding-bottom: 5px;--padding-start: 0px; border: solid 1px #ddd;">
+            </ion-datetime>
+          </td>
+          <td style="width: 50%!important; padding: 10px!important;">
+            <ion-datetime displayFormat="DD/MM/YYYY" min="2015-01-01" max="2025-12-31" [(ngModel)]="denNgay"
+              Style="width: 100%; text-align: center; border-radius: 3px; color: #000;--padding-top: 5px;--padding-end: 5;--padding-bottom: 5px;--padding-start: 0px; border: solid 1px #ddd;">
+            </ion-datetime>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%!important; max-width: 100%!important;">
+        <tr>
+          <td style="font-size: 20px!important;padding-left: 5px; padding-top: 5px; text-align: justify;width:100%;">
+            <select value="{{loaiChungTu}}" (change)="onLoaiCTChange($event)"
+              style="font-size: 20px!important; width: 100%!important; max-width: 100%!important; --padding-top: 0px; --padding-end: 5px; --padding-bottom: 0px; --padding-start: 0px; border: solid 0px #ddd;background-color: #fff;">
+              <option *ngFor="let item of lstChungTu" value="{{item.LoaiCTID}}">
+                {{item.DienGiai}}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%!important; max-width: 100%!important;">
+        <tr>
+          <td style="padding: 0px!important;">
+            <ion-searchbar showCancelButton="always" color="light" style="--border-radius:1px;"
+              placeholder="Tìm kiếm thông tin" [(ngModel)]="Keyword" (ionInput)="filterInfo($event)"
+              style="--font-size:20px!important;" clearInput>
+            </ion-searchbar>
+          </td>
+          <td style="padding: 0px!important; padding: 10px!important; width: 40px; text-align: right;">
+            <ion-icon (click)="getData()" name="search-outline" style="font-size: 25px;
+            margin-bottom: -5px !important;            
+            padding: 9px;
+            border: solid 1px #7077d6;
+            border-radius: 4px;
+            color: #7077d6;"></ion-icon>
+          </td>
+        </tr>
+      </table>
+
+      <div *ngFor="let item of Bill" style="margin-top: 20px;">
+
+        <div style="margin-bottom: 15px; border-bottom: solid 1px #ddd; padding-bottom: 5px;">
+          <table style="width: 100%!important; max-width: 100%!important; margin-bottom: 0px;">
+            <tr>
+              <td style="width: 30px; padding-top: 0px!important; vertical-align: top; text-align: center;">
+                <ion-icon name="document-text-outline" style="font-size: 24px;"></ion-icon>
+              </td>
+              <td style="padding-bottom: 5px;">
+                <div style="font-size: 15px;">
+                  {{item.SoCT}}
+                </div>
+                <div style="font-size: 14px; padding-top: 5px;">
+                  {{item.NgayCT}}
+                </div>
+              </td>
+              <td
+                style="width: 150px!important; padding: 5px; padding-top: 0px!important; vertical-align: top; text-align: right;">
+                <div style="font-weight: bold;color: #7077d6;">
+                  {{item.TongTien|number}} đ
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <ion-button shape="round" (click)="syncBill(item.ChungTuID)">
+                  Đồng bộ
+                </ion-button>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <ion-fab *ngIf="this.TabIndex == 1" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button style="width: 50px!important; height: 50px!important;">
+      <ion-icon name="add" (click)="addNew()"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,220 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons (click)="closeModal()" slot="start">
+      <ion-item lines="none"
+        style="--padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <ion-icon name="chevron-back-outline" style="font-size: 25px;"></ion-icon>
+      </ion-item>
+    </ion-buttons>
+
+    <ion-title style="font-weight: 600; text-align: center;">
+      Vật tư
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-item lines="none"
+        style=" --padding-start: 10px!important; --padding-end:0px!important;--padding-top:0px!important;--border-width:0px!important;">
+        <!-- <ion-icon name="duplicate-outline"></ion-icon> -->
+      </ion-item>
+
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="product-header">
+    <div class="product-search">
+      <input (keyup)="onSearch($event)" [(ngModel)]="pageInfo.keyword" type="text"
+        placeholder="Tìm kiếm tên hàng hóa ..." style="text-align: left; background: white;">
+      <!-- <ion-icon class="search-icon" *ngIf="pageInfo.keyword == ''" name="search-outline"></ion-icon> -->
+      <ion-icon (click)="deleteSearch()" *ngIf="pageInfo.keyword != ''" class="search-icon2"
+        name="close-circle-outline"></ion-icon>
+    </div>
+    <!-- <div class="product-add">
+        <div class="synthetic-item2">
+          <div class="synthetic-item-left">
+            {{countVattu | number}} mặt hàng
+          </div>
+          <div (click)="openModal()" class="synthetic-item2-right">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </div>
+        </div> 
+    </div> -->
+  </div>
+</ion-header>
+
+
+<ion-content>
+
+
+  <div class="product">
+    <div (click)="getItem(item)" *ngFor="let item of listData; index as i" class="product-item border-b"
+      [class]="item.checkHover == true ? 'bg-hover' : ''">
+      <div *ngIf="displayImg" class="product-img">
+        <img *ngIf="!item.Img" src="../../../assets/images/no-img.jpg" alt="">
+        <img *ngIf="item.Img" [src]="item.Img" alt="">
+
+      </div>
+      <div class="product-content">
+        <div class="product-content-item">
+          <div class="product-content-left product-content-title">
+            {{item.TenVT}}
+          </div>
+          <div class="product-content-right">
+            <button *ngIf="!item.check" (click)="handleAdd(true, i, item)">
+              <ion-icon name="add-outline"></ion-icon>
+              Thêm
+            </button>
+            <button *ngIf="item.check" (click)="handleAdd(false, i, item)" class="product-red">
+              <ion-icon name="remove-outline"></ion-icon> Hủy
+            </button>
+
+          </div>
+        </div>
+
+        <div class="product-content-item mt-6">
+          <div class="product-content-left">
+            <span>ĐVT:</span>
+            <span (click)="handleDVT(item.MaVT, item.DVT, i)">
+              {{item.DVT}}
+            </span>
+
+          </div>
+
+          <div class="product-content-right">
+            <div class="product-content-left">
+              <span>Lượng tồn:</span>
+              {{item.LuongTon}}
+
+            </div>
+
+          </div>
+        </div>
+        <div class="product-content-item mt-6">
+          <div class="product-content-left">
+            <span>Lô hàng:</span>
+            <!-- {{item.LoHang}} -->
+            <div *ngIf="!item.check || page =='xuatbanle'">{{item.LoHang}}</div>
+
+            <input *ngIf="item.check && page == 'nhapmua'" [style.width]="displayImg ? '75px' : '106px'"
+              [class]="item.checkHover == true ? 'bg-hover' : ''" type="text" [(ngModel)]="item.LoHang"
+              (ngModelChange)="setItem('LoHang',item.MaVT, $event) ">
+
+          </div>
+          <div class="product-content-right">
+            <div class="product-content-left">
+              <span>Hạn dùng:</span>
+              <div *ngIf="!item.check || page =='xuatbanle'">{{item.HanDung}}</div>
+              <input *ngIf="item.check && page == 'nhapmua'" [class]="item.checkHover == true ? 'bg-hover' : ''"
+                type="date" placeholder='' [(ngModel)]="item.HanDung"
+                (ngModelChange)="setItem('HanDung',item.MaVT, $event)" [style.width]="displayImg ? '75px' : '106px'">
+
+
+            </div>
+          </div>
+        </div>
+        <div class="product-content-item mt-6">
+          <div class="product-content-left">
+            <span style="margin-right: 3px;">Giá bán:</span>
+            <div *ngIf="!item.check">{{item.DonGia | number}}</div>
+
+            <input *ngIf="item.check" [class]="item.checkHover == true ? 'bg-hover' : ''" type="text"
+              [style.width]="displayImg ? '75px' : '106px'" [(ngModel)]="item.DonGia"
+              (ngModelChange)="formatInput('DonGia',item.MaVT, item.DonGia, i) ">
+
+          </div>
+          <div *ngIf="item.check" class="product-content-right">
+            <div class="product-content-left">
+              <span>Số lượng:</span>
+
+              <!-- <ion-icon (click)="formatInput('SoLuong', item.MaVT, item.LoHang, i, 'plus', $event)" name="add-circle-outline"></ion-icon> -->
+              <div style="margin-top: 4px;">
+                <input [style.width]="displayImg ? '75px' : '106px'" [class]="item.checkHover == true ? 'bg-hover' : ''"
+                  type="text" [(ngModel)]="item.SoLuong"
+                  (ngModelChange)="formatInput('SoLuong', item.MaVT, item.LoHang, i, '', $event)">
+              </div>
+              <!-- <ion-icon (click)="formatInput('SoLuong', item.MaVT, i, 'subtraction', $event)" name="remove-circle-outline"></ion-icon> -->
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- <table class="product-table">
+          <tr>
+            <td>
+              <div class="product-table-item">
+                <label>ĐVT:</label>
+                <span (click)="handleDVT(item.MaVT, item.DVT, i)">
+                  {{item.DVT}}
+                </span>
+              </div>
+            </td>
+            <td>
+              <div class="product-table-item">
+                <label>Lượng tồn:</label>
+                {{item.LuongTon}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-table-item">
+                <label>Lô hàng:</label>
+                <div *ngIf="!item.check || page =='xuatbanle'">{{item.LoHang}}</div>
+
+                <input *ngIf="item.check && page == 'nhapmua'" [class]="item.checkHover == true ? 'bg-hover' : ''"
+                  type="text" [(ngModel)]="item.LoHang" (ngModelChange)="setItem('LoHang',item.MaVT, $event) ">
+
+              </div>
+
+            </td>
+            <td>
+              <div class="product-table-item">
+                <label>Hạn dùng:</label>
+                <div *ngIf="!item.check || page =='xuatbanle'">{{item.HanDung}}</div>
+                <input *ngIf="item.check && page == 'nhapmua'" [class]="item.checkHover == true ? 'bg-hover' : ''"
+                  type="date" placeholder='' [(ngModel)]="item.HanDung"
+                  (ngModelChange)="setItem('HanDung',item.MaVT, $event)">
+              </div>
+            </td>
+          </tr>
+        </table> -->
+
+
+
+        <!-- <div class="product-content-item mt-6">
+          <div *ngIf="listVattu[i].SoLuong > item.LuongTon" class="product-content-right alertErr">
+            <ion-icon name="alert-circle-outline"></ion-icon> Số lượng không hợp lệ
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+
+  </div>
+
+  <ion-infinite-scroll *ngIf="!pageInfo.keyword" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Đang tải dữ liệu...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+
+    <div class="product-footer">
+      <table>
+        <tr>
+          <td class="product-bold">Số vật tư: <span>{{listExist.length}}</span></td>
+          <td class="product-bold text-right">T.Tiền: <span>{{sumThanhTien | number}}</span></td>
+        </tr>
+      </table>
+      <div class="product-footer-left">
+        <!-- <div class="product-footer-form">
+        <ion-icon name="receipt-outline"></ion-icon>
+        <div class="product-footer-number">2</div>
+      </div> -->
+        <button (click)="handleProduct()">CHỌN VẬT TƯ</button>
+
+      </div>
+    </div>
+  </ion-toolbar>
+
+</ion-footer>
